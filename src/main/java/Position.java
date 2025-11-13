@@ -1,4 +1,4 @@
-public class Position {
+public abstract class Position {
     private int x,y;
 
     public Position(int x,int y){
