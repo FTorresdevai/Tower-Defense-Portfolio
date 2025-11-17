@@ -1,23 +1,30 @@
-public class Tower {
-    private Position p;
-    private int range;
-    private int health;
+public class Tower implements GameObject {
+
     private Size size;
+    private float cooldown;
 
 
+    public Tower(Size size,int damage) {
+        this.size = size;
+    }
 
-    public Position get_Position(){
-        return p;
+    @Override
+    public void update(long now) {
+        // lógica futura
     }
-    public int get_range(){
-        return range;
+
+    @Override
+    public void draw(com.googlecode.lanterna.graphics.TextGraphics graphics) {
+        // desenho futuro
     }
-    public int health(){
-        return health;
-    }
-    public Size getSize(){
+
+    @Override
+    public Size getSize() {
         return size;
     }
 
+    public float getCooldown(){
+        return cooldown;
+    }
 
 }

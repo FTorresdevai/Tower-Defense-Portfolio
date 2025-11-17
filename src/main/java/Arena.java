@@ -1,3 +1,4 @@
+
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -5,10 +6,12 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Arena {
     private int width;
     private int height;
+    private List<GameObject> objects;
 
     //construtor e getters
     public Arena(int width, int height) {
@@ -45,11 +48,15 @@ public class Arena {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0),
                 new TerminalSize(width, height), ' ');
-
+        for (GameObject obj : objects) {
+            obj.draw(graphics);
+        };
         // Cada elemento desenha-se igual ao hero(falta definir elementos)
         /*for (Tower tower : towers) tower.draw(graphics);
         for (Enemy enemy : enemies) enemy.draw(graphics);
         for (Projectile projectile : projectiles) projectile.draw(graphics);*/
+
+
     }
 }
 

@@ -1,3 +1,4 @@
+
 public abstract class Position {
     private int x,y;
 

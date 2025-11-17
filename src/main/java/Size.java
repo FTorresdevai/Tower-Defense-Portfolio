@@ -1,6 +1,8 @@
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class Size {
     private List<Position> positions;
