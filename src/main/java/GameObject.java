@@ -3,12 +3,12 @@ import java.awt.*; // só se precisares de cores ou posições (opcional)
 
 public interface GameObject {
 
-    // Atualiza o objeto (lógica, movimento, cooldown, etc)
-    void update(long now);
+
 
     // Desenha o objeto na tela usando Lanterna
-    void draw(TextGraphics graphics);
+    void draw(TextGraphics g);
 
-    // Retorna a lista de posições atual do objeto
-    Size getSize();
+    // Retorna a posição mais a esquerda e a lista dos pixels
+     Shape getShape();
+     Position getPosition();
 }
