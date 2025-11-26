@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class PathMovementStrategy implements MovementStrategy {
     private Path path;
     private float speed;
@@ -7,6 +5,10 @@ public class PathMovementStrategy implements MovementStrategy {
 
     public PathMovementStrategy(Path path, float speed) {
         this.path = path;
+        this.speed = speed;
+    }
+
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 
@@ -20,14 +22,9 @@ public class PathMovementStrategy implements MovementStrategy {
         if (position.getY() < targetNode.getY()) position.setY(position.getY() + speed);
         if (position.getY() > targetNode.getY()) position.setY(position.getY() - speed);
 
-        if (hasReachedNode(position, targetNode)) {
+        if (Math.abs(position.getX() - targetNode.getX()) < 1.0 && Math.abs(position.getY() - targetNode.getY()) < 1.0) {
             currentNodeIndex++;
         }
-    }
-
-    private boolean hasReachedNode(Position current, Position target) {
-        return Math.abs(current.getX() - target.getX()) < 0.5 &&
-                Math.abs(current.getY() - target.getY()) < 0.5;
     }
 
     public boolean isFinished() {

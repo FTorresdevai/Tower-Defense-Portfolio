@@ -12,8 +12,5 @@ public class Path {
         nodes.add(new Position(x, y));
     }
 
-    public List<Position> getNodes() {
-        return nodes;
-    }
+    public List<Position> getNodes() { return nodes; }
 }
-

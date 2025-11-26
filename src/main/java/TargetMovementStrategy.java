@@ -7,21 +7,25 @@ public class TargetMovementStrategy implements MovementStrategy {
         this.speed = speed;
     }
 
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
     @Override
     public void move(Position position) {
+        if (target == null) return;
         Position tPos = target.getPosition();
 
-        if (Math.abs(position.getX() - tPos.getX()) <= speed &&
-                Math.abs(position.getY() - tPos.getY()) <= speed) {
+        float dx = tPos.getX() - position.getX();
+        float dy = tPos.getY() - position.getY();
+        float dist = (float) Math.sqrt(dx * dx + dy * dy);
+
+        if (dist <= speed) {
             position.setX(tPos.getX());
             position.setY(tPos.getY());
-            return;
+        } else {
+            position.setX(position.getX() + (dx / dist) * speed);
+            position.setY(position.getY() + (dy / dist) * speed);
         }
-
-        if (position.getX() < tPos.getX()) position.setX(position.getX() + speed);
-        else if (position.getX() > tPos.getX()) position.setX(position.getX() - speed);
-
-        if (position.getY() < tPos.getY()) position.setY(position.getY() + speed);
-        else if (position.getY() > tPos.getY()) position.setY(position.getY() - speed);
     }
 }

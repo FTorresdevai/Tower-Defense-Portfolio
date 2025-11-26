@@ -1,6 +1,6 @@
 public class Pixel {
-    private int dx, dy; // relative offset
-    private char c;     // character to draw
+    private int dx, dy;
+    private char c;
 
     public Pixel(int dx, int dy, char c) {
         this.dx = dx;
@@ -12,4 +12,3 @@ public class Pixel {
     public int getDy() { return dy; }
     public char getChar() { return c; }
 }
-
