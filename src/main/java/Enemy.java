@@ -43,8 +43,11 @@ public class Enemy implements GameObject{
         if (position.getY() > target.getY()) position.setY(position.getY() - speed);
 
         // check if arrived to target node
-        if (position.getX() == target.getX() && position.getY() == target.getY())
+        if (Math.abs(position.getX() - target.getX()) < 0.5 &&
+                Math.abs(position.getY() - target.getY()) < 0.5)
+        {
             currentnode++;
+        }
 
         return false; // not escaped
     }

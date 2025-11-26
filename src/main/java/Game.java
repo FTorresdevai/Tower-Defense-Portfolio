@@ -48,7 +48,8 @@ public class Game {
     }
 
     private void processKey(KeyStroke key) throws IOException {
-        switch (key.getKeyType()) {
+        if (key == null) return;
+        switch (key.getKeyType()){
             case EOF:
                 screen.close();
                 System.exit(0);

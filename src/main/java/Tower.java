@@ -12,6 +12,7 @@ public class Tower implements GameObject {
     public Tower(int x, int y, Shape shape) {
         this.position = new Position(x, y);
         this.shape = shape;
+        this.range = 20;
     }
 
     public Position getPosition() { return position; }

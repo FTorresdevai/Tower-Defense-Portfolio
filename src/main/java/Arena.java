@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Arena {
         this.width = width;
         this.height = height;
 
+        createPath();
         createExampleTowers();
         createExampleEnemies();
     }
@@ -40,25 +42,38 @@ public class Arena {
     }
     private void createExampleTowers() {
         // Triangle tower example:
-        //   ^
-        //  ^^
-        // ^^^^
+        Shape pyramid = new Shape();
 
-        Shape tri = new Shape();
-        tri.add(1,0,'^');
-        tri.add(0,1,'^'); tri.add(1,1,'^');
-        tri.add(0,2,'^'); tri.add(1,2,'^'); tri.add(2,2,'^');
+// Top layer (1 wide)
+        pyramid.add(0, -2, '^');
 
-        towers.add(new Tower(40, 20, tri));
+// Middle layer (3 wide)
+        pyramid.add(-1, -1, '^');
+        pyramid.add(0,  -1, '^');
+        pyramid.add(1,  -1, '^');
+
+// Bottom layer (5 wide)
+        pyramid.add(-2, 0, '^');
+        pyramid.add(-1, 0, '^');
+        pyramid.add(0,  0, '^');
+        pyramid.add(1,  0, '^');
+        pyramid.add(2,  0, '^');
+
+
+
+        towers.add(new Tower(40, 20, pyramid));
     }
+
     private void updateTowers() {
+        Shape projShape = new Shape();
+        projShape.add(0, 0, '*');
         for (Tower t : towers) {
             for (Enemy e : enemies) {
                 if (t.isInRange(e.getPosition())) {
                     projectiles.add(new Projectile(
                             (int)t.getPosition().getX(),
                             (int)t.getPosition().getY(),
-                            new Shape(),
+                            projShape,
                             e
                     ));
                     break; // one target at a time
@@ -101,12 +116,9 @@ public class Arena {
 
     //define o que faz cada "key" recebida (semelhante ao hero)
     void processKey(KeyStroke key) throws IOException {
-        /*switch (key.getKeyType()) {
-            case ... :
 
-            default:
-                break;
-        }*/
+
+
     }
 
     public void draw(TextGraphics graphics) {

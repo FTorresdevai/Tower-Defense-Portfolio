@@ -48,7 +48,11 @@ public class Projectile implements GameObject{
     @Override
     public void draw(TextGraphics g) {
         g.setForegroundColor(TextColor.ANSI.WHITE);
-        g.putString((int) pos.getX(), (int) pos.getY(), "*");
+        for (Pixel px : shape.getPixels()) {
+            int x = (int)pos.getX() + px.getDx();
+            int y = (int)pos.getY() + px.getDy();
+            g.putString(x, y, String.valueOf(px.getChar()));
+        }
 
     }
 
