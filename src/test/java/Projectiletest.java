@@ -16,7 +16,7 @@ class ProjectileTest{
     }
 
     @Test
-    void TestUpdateMove_Q1(){
+    void testUpdateMove_Q1(){
 
         Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20,14));
 
@@ -27,7 +27,7 @@ class ProjectileTest{
 
     }
     @Test
-    void TestUpdateMove_Q3(){
+    void testUpdateMove_Q3(){
 
         Mockito.when(enemyMock.getPosition()).thenReturn(new Position(8,6));
         projectile.update();
