@@ -5,8 +5,7 @@ public class Application {
         try {
             Game game = new Game();
             game.run();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

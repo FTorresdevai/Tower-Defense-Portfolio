@@ -1,24 +1,13 @@
 public class Position {
-    private int x,y;
+    private float x, y;
 
-    public Position(int x,int y){
+    public Position(float x, float y) {
         this.x = x;
-        this.y= y;
-    }
-
-    public int getX(){
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
         this.y = y;
     }
 
+    public float getX() { return x; }
+    public float getY() { return y; }
+    public void setX(float x) { this.x = x; }
+    public void setY(float y) { this.y = y; }
 }

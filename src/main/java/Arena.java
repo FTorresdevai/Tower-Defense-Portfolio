@@ -3,53 +3,139 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
-import java.io.IOException;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class Arena {
     private int width;
     private int height;
+    private Path path;
+    private List<Enemy> enemies = new ArrayList<>();
+    private List<Projectile> projectiles = new ArrayList<>();
+    private List<Tower> towers = new ArrayList<>();
+    private int cursorX = 10;
+    private int cursorY = 10;
 
-    //construtor e getters
+
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
+        createPath();
+        createExampleTowers();
+        createExampleEnemies();
     }
 
-    public int getWidth() {
-        return width;
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public int getCursorX() { return cursorX; }
+    public int getCursorY() { return cursorY; }
+
+
+    private void createPath() {
+        path = new Path();
+        path.addNode(5, 5);
+        path.addNode(20, 5);
+        path.addNode(20, 15);
+        path.addNode(60, 15);
     }
 
-    public int getHeight() {
-        return height;
+    private void createExampleEnemies() {
+        enemies.add(EnemyFactory.createBasicEnemy(5, 5, path));
     }
 
-    //atualiza o jogo
+    private void createExampleTowers() {
+        towers.add(TowerFactory.createBasicTower(20, 8));
+    }
+
     public void update() {
-        //atualizar: inimigos, torres, projéteis, etc.
-        System.out.println("a atualizar");
-    }
+        List<Enemy> enemiesToRemove = new ArrayList<>();
+        for (Enemy e : enemies) {
+            e.update();
+            if (e.hasReachedEnd()) enemiesToRemove.add(e);
+        }
+        enemies.removeAll(enemiesToRemove);
 
-    //define o que faz cada "key" recebida (semelhante ao hero)
-    void processKey(KeyStroke key) throws IOException {
-        /*switch (key.getKeyType()) {
-            case ... :
+        for (Tower t : towers) {
+            t.tickCooldown();
+            if (!t.canShoot()) continue;
+
+            for (Enemy e : enemies) {
+                if (t.isInRange(e.getPosition())) {
+                    projectiles.add(ProjectileFactory.createBasicProjectile(
+                            (int) t.getPosition().getX(),
+                            (int) t.getPosition().getY(),
+                            e
+                    ));
+                    t.resetCooldown();
+                    break;
+                }
+            }
+        }
+
+        List<Projectile> projectilesToRemove = new ArrayList<>();
+        List<Enemy> hitEnemies = new ArrayList<>();
+
+        for (Projectile p : projectiles) {
+            p.update();
+            if (p.hasHitTarget()) {
+                projectilesToRemove.add(p);
+                hitEnemies.add(p.getTarget());
+            } else if (!p.isAlive()) {
+                projectilesToRemove.add(p);
+            }
+        }
+
+        projectiles.removeAll(projectilesToRemove);
+        enemies.removeAll(hitEnemies);
+    }
+    public void processKey(KeyStroke key) {
+        if (key == null) return;
+
+        switch (key.getKeyType()) {
+            case ArrowUp:
+                cursorY = Math.max(0, cursorY - 1);
+                break;
+
+            case ArrowDown:
+                cursorY = Math.min(height - 1, cursorY + 1);
+                break;
+
+            case ArrowLeft:
+                cursorX = Math.max(0, cursorX - 1);
+                break;
+
+            case ArrowRight:
+                cursorX = Math.min(width - 1, cursorX + 1);
+                break;
 
             default:
                 break;
-        }*/
+        }
+
+
+        if (key.getKeyType() == KeyType.Character) {
+            char c = key.getCharacter();
+            if (c == 'w') cursorY = Math.max(0, cursorY - 1);
+            if (c == 's') cursorY = Math.min(height - 1, cursorY + 1);
+            if (c == 'a') cursorX = Math.max(0, cursorX - 1);
+            if (c == 'd') cursorX = Math.min(width - 1, cursorX + 1);
+        }
     }
+
 
     public void draw(TextGraphics graphics) {
-        // Fundo
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
-        graphics.fillRectangle(new TerminalPosition(0, 0),
-                new TerminalSize(width, height), ' ');
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        for (Tower t : towers) t.draw(graphics);
+        for (Enemy e : enemies) e.draw(graphics);
+        for (Projectile p : projectiles) p.draw(graphics);
+        graphics.setForegroundColor(TextColor.ANSI.WHITE);
+        graphics.putString(cursorX, cursorY, "X");
 
-        // Cada elemento desenha-se igual ao hero(falta definir elementos)
-        /*for (Tower tower : towers) tower.draw(graphics);
-        for (Enemy enemy : enemies) enemy.draw(graphics);
-        for (Projectile projectile : projectiles) projectile.draw(graphics);*/
     }
 }
-
