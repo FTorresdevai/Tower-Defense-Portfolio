@@ -54,5 +54,6 @@ public class Game {
             screen.close();
             System.exit(0);
         }
+        arena.processKey(key);
     }
 }
