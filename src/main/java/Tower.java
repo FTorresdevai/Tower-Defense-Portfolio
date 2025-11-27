@@ -22,9 +22,6 @@ public class Tower implements GameObject {
     public float getMaxCooldown(){
         return maxCooldown;
     }
-    public int getRange(){
-        return range;
-    }
     public void setCooldown(float cooldown) {
         this.cooldown = cooldown;
     }

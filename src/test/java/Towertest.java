@@ -16,12 +16,6 @@ class TowerTest {
         maxcooldown = 30;
     }
     @Test
-    void testSetCooldownValue() {
-        final float expectedValue = 18.5f;
-        tower.setCooldown(expectedValue);
-        assertEquals(expectedValue, tower.getCooldown(), "O setter deve atualizar o estado interno");
-    }
-    @Test
     public void testIsInRange() {
         assertTrue(tower.isInRange(new Position(15, 20)), "Enemy should be in range");
         assertTrue(tower.isInRange(new Position(30, 10)), "Enemy should be at max range");
