@@ -45,24 +45,11 @@ public class Arena {
     }
 
     private void createExampleEnemies() {
-        Shape enemyShape = new Shape();
-        enemyShape.add(0, 0, 'o');
-        enemies.add(new Enemy(5, 5, enemyShape, path));
+        enemies.add(EnemyFactory.createBasicEnemy(5, 5, path));
     }
 
     private void createExampleTowers() {
-        Shape pyramid = new Shape();
-        pyramid.add(0, -2, '^');
-        pyramid.add(-1, -1, '^');
-        pyramid.add(0, -1, '^');
-        pyramid.add(1, -1, '^');
-        pyramid.add(-2, 0, '^');
-        pyramid.add(-1, 0, '^');
-        pyramid.add(0, 0, '^');
-        pyramid.add(1, 0, '^');
-        pyramid.add(2, 0, '^');
-
-        towers.add(new Tower(20, 8, pyramid));
+        towers.add(TowerFactory.createBasicTower(20, 8));
     }
 
     public void update() {
@@ -79,9 +66,11 @@ public class Arena {
 
             for (Enemy e : enemies) {
                 if (t.isInRange(e.getPosition())) {
-                    Shape projShape = new Shape();
-                    projShape.add(0, 0, '*');
-                    projectiles.add(new Projectile((int) t.getPosition().getX(), (int) t.getPosition().getY(), projShape, e));
+                    projectiles.add(ProjectileFactory.createBasicProjectile(
+                            (int) t.getPosition().getX(),
+                            (int) t.getPosition().getY(),
+                            e
+                    ));
                     t.resetCooldown();
                     break;
                 }
