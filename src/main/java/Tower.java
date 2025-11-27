@@ -16,7 +16,18 @@ public class Tower implements GameObject {
 
     public Position getPosition() { return position; }
     public Shape getShape() { return shape; }
-
+    public float getCooldown(){
+        return cooldown;
+    }
+    public float getMaxCooldown(){
+        return maxCooldown;
+    }
+    public int getRange(){
+        return range;
+    }
+    public void setCooldown(float cooldown) {
+        this.cooldown = cooldown;
+    }
     public boolean canShoot() { return cooldown <= 0; }
     public void tickCooldown() { if (cooldown > 0) cooldown--; }
     public void resetCooldown() { cooldown = maxCooldown; }
@@ -37,3 +48,4 @@ public class Tower implements GameObject {
         }
     }
 }
+

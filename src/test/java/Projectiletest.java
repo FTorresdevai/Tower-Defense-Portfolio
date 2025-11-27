@@ -11,35 +11,93 @@ class ProjectileTest {
     void setup() {
         enemyMock = Mockito.mock(Enemy.class);
         projectile = new Projectile(10, 10, new Shape(), enemyMock);
-        // Força a velocidade 2.0 para os testes matemáticos funcionarem
         projectile.setSpeed(2.0f);
     }
 
-    @Test
-    void testUpdateMove_Q1() {
-        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20, 14));
+    void testUpdateMove_Right() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20, 10));
         projectile.update();
-        assertEquals(12.0f, projectile.getPosition().getX(), "The x should increase");
-        assertEquals(12.0f, projectile.getPosition().getY(), "The y should increase");
+        assertEquals(12.0f, projectile.getPosition().getX(), 0.01);
+        assertEquals(10.0f, projectile.getPosition().getY(), 0.01);
     }
 
     @Test
-    void testUpdateMove_Q3() {
-        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(8, 6));
+    void testUpdateMove_Left() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(0, 10));
         projectile.update();
-        assertEquals(8.0f, projectile.getPosition().getX(), "The x should decrease");
-        assertEquals(8.0f, projectile.getPosition().getY(), "The y should decrease");
+        assertEquals(8.0f, projectile.getPosition().getX(), 0.01);
+        assertEquals(10.0f, projectile.getPosition().getY(), 0.01);
     }
 
     @Test
-    void testCollision_hit() {
+    void testUpdateMove_Up() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(10, 0));
+        projectile.update();
+        assertEquals(10.0f, projectile.getPosition().getX(), 0.01);
+        assertEquals(8.0f, projectile.getPosition().getY(), 0.01);
+    }
+
+    @Test
+    void testUpdateMove_Down() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(10, 20));
+        projectile.update();
+        assertEquals(10.0f, projectile.getPosition().getX(), 0.01);
+        assertEquals(12.0f, projectile.getPosition().getY(), 0.01);
+    }
+
+    @Test
+    void testUpdateMove_Diagonal_UpRight() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20, 20));
+
+        projectile.update();
+        assertEquals(11.414f, projectile.getPosition().getX(), 0.01, "X should increase by ~1.41");
+        assertEquals(11.414f, projectile.getPosition().getY(), 0.01, "Y should increase by ~1.41");
+    }
+
+    @Test
+    void testUpdateMove_Diagonal_DownLeft() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(0, 0));
+
+        projectile.update();
+
+        assertEquals(8.586f, projectile.getPosition().getX(), 0.01, "X should decrease");
+        assertEquals(8.586f, projectile.getPosition().getY(), 0.01, "Y should decrease");
+    }
+
+    @Test
+    void testUpdateMove_Diagonal_DownRight() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20, 0));
+
+        projectile.update();
+
+        assertEquals(11.414f, projectile.getPosition().getX(), 0.01, "X should increase");
+        assertEquals(8.586f, projectile.getPosition().getY(), 0.01, "Y should decrease");
+    }
+
+    @Test
+    void testUpdateMove_Diagonal_UpLeft() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(0, 20));
+
+        projectile.update();
+
+        assertEquals(8.586f, projectile.getPosition().getX(), 0.01, "X should decrease");
+        assertEquals(11.414f, projectile.getPosition().getY(), 0.01, "Y should increase");
+    }
+
+
+    @Test
+    void testCollision_Hit() {
         Mockito.when(enemyMock.getPosition()).thenReturn(new Position(10, 10.5f));
-        boolean hasHit = false;
-
         projectile.update();
-        if (projectile.hasHitTarget()) hasHit = true;
+        assertTrue(projectile.hasHitTarget());
+        assertFalse(projectile.isAlive());
+    }
 
-        assertTrue(hasHit, "Should hit target");
-        assertFalse(projectile.isAlive(), "Should die after hitting");
+    @Test
+    void testCollision_Miss() {
+        Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20, 20));
+        projectile.update();
+        assertFalse(projectile.hasHitTarget());
+        assertTrue(projectile.isAlive());
     }
 }

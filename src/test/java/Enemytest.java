@@ -1,18 +1,19 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class EnemyTest {
     private Enemy enemy;
     private Path path;
+    private Shape shape;
 
     @BeforeEach
     public void setUp() {
         path = new Path();
         path.addNode(10, 10);
-        Shape shape = new Shape();
+        shape = new Shape();
         enemy = new Enemy(0, 10, shape, path);
-        // Velocidade 1.0 para facilitar as contas do teste
         enemy.setSpeed(1.0f);
     }
 
@@ -21,5 +22,33 @@ class EnemyTest {
         enemy.update();
         assertEquals(1.0f, enemy.getPosition().getX(), "Enemy X should have moved 1 unit");
         assertEquals(10.0f, enemy.getPosition().getY(), "Enemy Y position should remain the same");
+    }
+
+    @Test
+    public void testHasreachend_1node(){
+        enemy.getPosition().setX(9.0f);
+        enemy.update();
+
+        assertEquals(10.0f, enemy.getPosition().getX());
+        assertTrue(enemy.hasReachedEnd(), "Enemy should have ended");
+
+    }
+
+    @Test
+    public void testHasreachend_2node(){
+        path.addNode(11,10);
+        enemy.getPosition().setX(9.0f);
+        enemy.update();
+
+        assertEquals(10.0f, enemy.getPosition().getX());
+        assertFalse(enemy.hasReachedEnd(), "Enemy should not have ended");
+        enemy.update();
+        assertTrue(enemy.hasReachedEnd(), "Enemy should have ended");
+
+    }
+
+    @Test
+    public void testShape(){
+        assertEquals(shape,enemy.getShape());
     }
 }
