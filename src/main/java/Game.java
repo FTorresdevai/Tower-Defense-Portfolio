@@ -11,6 +11,7 @@ import java.io.IOException;
 public class Game {
     private Screen screen;
     private Arena arena;
+    private GameHUD hud;
 
     public Game() throws IOException {
         TerminalSize terminalSize = new TerminalSize(80, 24);
@@ -23,12 +24,14 @@ public class Game {
         screen.doResizeIfNecessary();
 
         arena = new Arena(80, 24);
+        hud = new GameHUD(arena);
     }
 
     private void draw() throws IOException {
         screen.clear();
         TextGraphics graphics = screen.newTextGraphics();
         arena.draw(graphics);
+        hud.draw(graphics);
         screen.refresh();
     }
 

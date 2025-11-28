@@ -11,7 +11,7 @@ import java.util.List;
 
 
 
-public class Arena {
+public class Arena implements Subject{
     private int width;
     private int height;
     private Path path;
@@ -20,6 +20,10 @@ public class Arena {
     private List<Tower> towers = new ArrayList<>();
     private int cursorX = 10;
     private int cursorY = 10;
+    private int gold = 100;
+    private int lives = 10;
+    private int wave = 1;
+    private final List<Observer> observers = new ArrayList<>();
 
 
     public Arena(int width, int height) {
@@ -34,7 +38,31 @@ public class Arena {
     public int getHeight() { return height; }
     public int getCursorX() { return cursorX; }
     public int getCursorY() { return cursorY; }
+    public int getGold() { return gold; }
+    public int getLives() { return lives; }
+    public int getWave() { return wave; }
 
+    @Override
+    public void attach(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void detach(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers) {
+            o.update();
+        }
+    }
+
+    public void startNextWave() {
+        wave++;
+        notifyObservers();
+    }
 
     private void createPath() {
         path = new Path();
@@ -59,6 +87,11 @@ public class Arena {
             if (e.hasReachedEnd()) enemiesToRemove.add(e);
         }
         enemies.removeAll(enemiesToRemove);
+
+        if (!enemiesToRemove.isEmpty()) {
+            lives -= enemiesToRemove.size();
+            notifyObservers();
+        }
 
         for (Tower t : towers) {
             t.tickCooldown();
@@ -92,6 +125,11 @@ public class Arena {
 
         projectiles.removeAll(projectilesToRemove);
         enemies.removeAll(hitEnemies);
+
+        if (!hitEnemies.isEmpty()) {
+            gold += hitEnemies.size() * 5;
+            notifyObservers();
+        }
     }
     public void processKey(KeyStroke key) {
         if (key == null) return;
