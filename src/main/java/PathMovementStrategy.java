@@ -23,6 +23,8 @@ public class PathMovementStrategy implements MovementStrategy {
         if (position.getY() > targetNode.getY()) position.setY(position.getY() - speed);
 
         if (Math.abs(position.getX() - targetNode.getX()) < 1.0 && Math.abs(position.getY() - targetNode.getY()) < 1.0) {
+            position.setX(targetNode.getX());
+            position.setY(targetNode.getY());
             currentNodeIndex++;
         }
     }

@@ -66,18 +66,21 @@ public class Arena implements Subject{
 
     private void createPath() {
         path = new Path();
-        path.addNode(5, 5);
+        path.addNode(0, 5);
         path.addNode(20, 5);
         path.addNode(20, 15);
         path.addNode(60, 15);
+        path.addNode(60, 10);
+        path.addNode(75, 10);
+        path.addNode(79, 10);
     }
 
     private void createExampleEnemies() {
-        enemies.add(EnemyFactory.createBasicEnemy(5, 5, path));
+        enemies.add(EnemyFactory.createBasicEnemy(0, 5, path));
     }
 
     private void createExampleTowers() {
-        towers.add(TowerFactory.createBasicTower(20, 8));
+        towers.add(TowerFactory.createBasicTower(54, 13));
     }
 
     public void update() {
@@ -127,7 +130,7 @@ public class Arena implements Subject{
         enemies.removeAll(hitEnemies);
 
         if (!hitEnemies.isEmpty()) {
-            gold += hitEnemies.size() * 5;
+            gold += 5;
             notifyObservers();
         }
     }
@@ -169,6 +172,7 @@ public class Arena implements Subject{
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        path.draw(graphics);
         for (Tower t : towers) t.draw(graphics);
         for (Enemy e : enemies) e.draw(graphics);
         for (Projectile p : projectiles) p.draw(graphics);

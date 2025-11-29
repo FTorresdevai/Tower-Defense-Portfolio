@@ -11,15 +11,15 @@ class TowerTest {
     @BeforeEach
     void Setup() {
         shape = new Shape();
-        tower = new Tower(10, 10, shape);
+        tower = new Tower(54, 13, shape);
         cooldown = 0;
         maxcooldown = 30;
     }
     @Test
     public void testIsInRange() {
-        assertTrue(tower.isInRange(new Position(15, 20)), "Enemy should be in range");
-        assertTrue(tower.isInRange(new Position(30, 10)), "Enemy should be at max range");
-        assertFalse(tower.isInRange(new Position(50, 10)), "Enemy should be out of range");
+        assertTrue(tower.isInRange(new Position(50, 13)), "Enemy should be in range");
+        assertTrue(tower.isInRange(new Position(54, 19)), "Enemy should be at max range");
+        assertFalse(tower.isInRange(new Position(61, 13)), "Enemy should be out of range");
     }
 
     @Test
