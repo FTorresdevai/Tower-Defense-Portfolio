@@ -37,6 +37,11 @@ public class Arena implements Subject{
     public int getHeight() { return height; }
     public int getCursorX() { return cursorX; }
     public int getCursorY() { return cursorY; }
+    public List<Observer> getObservers() { return observers; }
+    public List<Tower> getTowers() { return towers; }
+    public List<Projectile> getProjectiles() { return projectiles; }
+    public List<Enemy>  getEnemies() { return enemies; }
+    public Path getPath() { return path; }
     public int getGold() { return gold; }
     public int getLives() { return lives; }
     public int getWave() { return wave; }

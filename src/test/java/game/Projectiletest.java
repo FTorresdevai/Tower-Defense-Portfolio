@@ -15,7 +15,7 @@ class ProjectileTest {
         projectile = new Projectile(10, 10, new Shape(), enemyMock);
         projectile.setSpeed(2.0f);
     }
-
+    @Test
     void testUpdateMove_Right() {
         Mockito.when(enemyMock.getPosition()).thenReturn(new Position(20, 10));
         projectile.update();
