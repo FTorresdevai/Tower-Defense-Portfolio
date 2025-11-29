@@ -10,7 +10,6 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import game.states.PlayState;
 import game.states.State;
-
 import java.io.IOException;
 
 public class Game {
@@ -23,7 +22,6 @@ public class Game {
         TerminalSize terminalSize = new TerminalSize(80, 24);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         Terminal terminal = terminalFactory.createTerminal();
-
         screen = new TerminalScreen(terminal);
         screen.setCursorPosition(null);
         screen.startScreen();
@@ -34,10 +32,15 @@ public class Game {
         currentState = new PlayState();
     }
 
+    private void draw() throws Exception {
+        screen.clear();
+        TextGraphics graphics = screen.newTextGraphics();
+        currentState.draw(this, graphics);
+        screen.refresh();
+    }
+
     public Arena getArena() { return arena; }
-
     public GameHUD getHUD() { return hud; }
-
     public void setState(State next) { this.currentState = next; }
 
     public void resetArena() {
@@ -49,20 +52,15 @@ public class Game {
         while (true) {
             KeyStroke key = screen.pollInput();
 
-            if (key != null && (key.getKeyType() == KeyType.EOF || (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'))) {
-
-                screen.close();
-                System.exit(0);
+            if (key != null && key.getKeyType() == KeyType.EOF) {
+                break;
             }
 
-            try{
+            try {
                 currentState.handleInput(this, key);
                 currentState.update(this);
-                screen.clear();
-                TextGraphics g = screen.newTextGraphics();
-                currentState.draw(this, g);
-                screen.refresh();
-            }catch (Exception e){
+                draw();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -72,5 +70,6 @@ public class Game {
                 e.printStackTrace();
             }
         }
+        screen.close();
     }
 }

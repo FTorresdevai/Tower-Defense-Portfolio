@@ -8,8 +8,6 @@ import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Arena implements Subject{
     private int width;
     private int height;
@@ -23,7 +21,6 @@ public class Arena implements Subject{
     private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
-
 
     public Arena(int width, int height) {
         this.width = width;
@@ -138,6 +135,7 @@ public class Arena implements Subject{
             notifyObservers();
         }
     }
+
     public void processKey(KeyStroke key) {
         if (key == null) return;
 
@@ -145,23 +143,18 @@ public class Arena implements Subject{
             case ArrowUp:
                 cursorY = Math.max(0, cursorY - 1);
                 break;
-
             case ArrowDown:
                 cursorY = Math.min(height - 1, cursorY + 1);
                 break;
-
             case ArrowLeft:
                 cursorX = Math.max(0, cursorX - 1);
                 break;
-
             case ArrowRight:
                 cursorX = Math.min(width - 1, cursorX + 1);
                 break;
-
             default:
                 break;
         }
-
 
         if (key.getKeyType() == KeyType.Character) {
             char c = key.getCharacter();
@@ -172,7 +165,6 @@ public class Arena implements Subject{
         }
     }
 
-
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
@@ -182,10 +174,63 @@ public class Arena implements Subject{
         for (Projectile p : projectiles) p.draw(graphics);
         graphics.setForegroundColor(TextColor.ANSI.WHITE);
         graphics.putString(cursorX, cursorY, "X");
-
     }
 
     public boolean isGameOver() {
         return lives <= 0;
+    }
+
+    public void addTower(Tower t){
+        towers.add(t);
+    }
+
+    public void removeGold(int cost) {
+        if (gold >= cost) {
+            gold -= cost;
+            notifyObservers();
+        }
+    }
+
+    // --- CORREÇÃO AQUI ---
+    public boolean isPlaceable(int x, int y) {
+        Position pos = new Position(x, y);
+        Shape dummyShape = new Shape();
+        // Usa getPixels().add em vez de addPixel
+        dummyShape.getPixels().add(new Pixel(0,0,' '));
+
+        if (path.isOnPath(pos, dummyShape)) return false;
+
+        for (Tower t : towers) {
+            if ((int)t.getPosition().getX() == x && (int)t.getPosition().getY() == y) return false;
+        }
+        return true;
+    }
+
+    public boolean isPlaceable(int x, int y, Shape shape) {
+        Position pos = new Position(x, y);
+
+        if (path.isOnPath(pos, shape)) return false;
+
+        for (Tower t : towers) {
+            if (shapesCollide(pos, shape, t.getPosition(), t.getShape())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean shapesCollide(Position pos1, Shape shape1, Position pos2, Shape shape2) {
+        for (Pixel p1 : shape1.getPixels()) {
+            int x1 = (int) pos1.getX() + p1.getDx();
+            int y1 = (int) pos1.getY() + p1.getDy();
+
+            for (Pixel p2 : shape2.getPixels()) {
+                int x2 = (int) pos2.getX() + p2.getDx();
+                int y2 = (int) pos2.getY() + p2.getDy();
+
+                if (x1 == x2 && y1 == y2) return true;
+            }
+        }
+        return false;
     }
 }
