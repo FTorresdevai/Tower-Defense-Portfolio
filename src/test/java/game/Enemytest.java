@@ -1,6 +1,5 @@
-import game.Enemy;
-import game.Path;
-import game.Shape;
+package game;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

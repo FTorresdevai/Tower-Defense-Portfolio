@@ -1,6 +1,5 @@
-import game.Position;
-import game.Shape;
-import game.Tower;
+package game;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
