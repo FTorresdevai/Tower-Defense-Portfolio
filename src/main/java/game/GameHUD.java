@@ -59,13 +59,12 @@ public class GameHUD implements Observer {
         msgs.add(msg4);
 
         int maxLen = Collections.max(msgs_length);
-        int x = 80 - maxLen -2;
+        int x = arena.getWidth() - maxLen - 2;
 
         int y = 0;
         for (String m : msgs) {
             g.putString(x,y,m);
-            y += 2;
+            y += 1;
         }
     }
-
 }

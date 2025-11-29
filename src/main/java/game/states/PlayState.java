@@ -31,7 +31,7 @@ public class PlayState implements State {
     @Override
     public void draw(Game context, TextGraphics g) throws Exception {
         context.getArena().draw(g);
-        context.getHUD().drawStats(g);
+        context.getHUD().draw(g);
     }
 }
 
