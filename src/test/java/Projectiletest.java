@@ -1,3 +1,7 @@
+import game.Enemy;
+import game.Position;
+import game.Projectile;
+import game.Shape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

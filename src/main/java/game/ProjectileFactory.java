@@ -1,3 +1,5 @@
+package game;
+
 public class ProjectileFactory {
 
     public static Projectile createBasicProjectile(int startX, int startY, Enemy target) {

@@ -1,3 +1,5 @@
+package game;
+
 public class Pixel {
     private int dx, dy;
     private char c;

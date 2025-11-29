@@ -1,3 +1,6 @@
+import game.Position;
+import game.Shape;
+import game.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,9 +20,9 @@ class TowerTest {
     }
     @Test
     public void testIsInRange() {
-        assertTrue(tower.isInRange(new Position(50, 13)), "Enemy should be in range");
-        assertTrue(tower.isInRange(new Position(54, 19)), "Enemy should be at max range");
-        assertFalse(tower.isInRange(new Position(61, 13)), "Enemy should be out of range");
+        assertTrue(tower.isInRange(new Position(50, 13)), "game.Enemy should be in range");
+        assertTrue(tower.isInRange(new Position(54, 19)), "game.Enemy should be at max range");
+        assertFalse(tower.isInRange(new Position(61, 13)), "game.Enemy should be out of range");
     }
 
     @Test
@@ -29,7 +32,7 @@ class TowerTest {
 
     @Test
     public void testCanshoot_yes(){
-        assertTrue(tower.canShoot(),"Tower should be able to shoot");
+        assertTrue(tower.canShoot(),"game.Tower should be able to shoot");
     }
     @Test
     public void testCanshoot_no(){

@@ -1,3 +1,5 @@
+package game;
+
 public class TargetMovementStrategy implements MovementStrategy {
     private Enemy target;
     private float speed;

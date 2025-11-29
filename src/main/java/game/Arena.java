@@ -1,11 +1,10 @@
+package game;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,5 +178,9 @@ public class Arena implements Subject{
         graphics.setForegroundColor(TextColor.ANSI.WHITE);
         graphics.putString(cursorX, cursorY, "X");
 
+    }
+
+    public boolean isGameOver() {
+        return lives <= 0;
     }
 }

@@ -1,3 +1,5 @@
+package game;
+
 public class PathMovementStrategy implements MovementStrategy {
     private Path path;
     private float speed;

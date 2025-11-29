@@ -1,3 +1,5 @@
+package game;
+
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class GameHUD implements Observer {

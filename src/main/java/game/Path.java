@@ -1,3 +1,5 @@
+package game;
+
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.ArrayList;

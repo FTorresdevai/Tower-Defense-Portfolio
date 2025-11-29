@@ -1,3 +1,5 @@
+package game;
+
 public class EnemyFactory {
 
     public static Enemy createBasicEnemy(int startX, int startY, Path path) {
