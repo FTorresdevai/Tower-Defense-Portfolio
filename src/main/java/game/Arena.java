@@ -183,4 +183,28 @@ public class Arena implements Subject{
     public boolean isGameOver() {
         return lives <= 0;
     }
+
+    public void addTower(Tower t){
+        towers.add(t);
+    }
+
+    public void removeGold(int cost) {
+        if (gold >= cost) {
+            gold -= cost;
+            notifyObservers();
+        }
+    }
+
+    public boolean isPlaceable(int x, int y) {
+        Position pos = new Position(x, y);
+        if (path.isOnPath(pos)) return false;
+        for (Tower t : towers) {
+            if ((int)t.getPosition().getX() == x && (int)t.getPosition().getY() == y) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

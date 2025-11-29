@@ -16,6 +16,18 @@ public class PlayState implements State {
             return;
         }
 
+        if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'b') {
+            int x = context.getArena().getCursorX();
+            int y = context.getArena().getCursorY();
+
+            if (context.getArena().isPlaceable(x, y)) {
+                context.setState(new ShopState(x, y));
+            } else {
+                context.getHUD().showMessage("Posicao Invalida!");
+            }
+            return;
+        }
+
         context.getArena().processKey(input);
     }
 

@@ -1,5 +1,6 @@
 package game;
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class GameHUD implements Observer {
     private int gold;
     private int lives;
     private int wave;
+    private String currentMessage = "";
+    private int messageTimer = 0;
 
     public GameHUD(Arena arena) {
         this.arena = arena;
@@ -30,6 +33,7 @@ public class GameHUD implements Observer {
     public void draw(TextGraphics g){
         drawStats(g);
         drawControls(g);
+        drawMessage(g);
     }
 
     public void drawStats(TextGraphics g) {
@@ -50,7 +54,7 @@ public class GameHUD implements Observer {
         msgs_length.add(msg2.length());
         msgs.add(msg2);
 
-        String msg3 = "B->Build Tower";
+        String msg3 = "B->Buy Tower(store)";
         msgs_length.add(msg3.length());
         msgs.add(msg3);
 
@@ -66,5 +70,22 @@ public class GameHUD implements Observer {
             g.putString(x,y,m);
             y += 1;
         }
+    }
+
+    public void drawMessage(TextGraphics g){
+        if (messageTimer > 0) {
+            g.setForegroundColor(TextColor.ANSI.RED);
+            int width = arena.getWidth();
+            int x = (width - currentMessage.length()) / 2;
+            int y = 5;
+            g.putString(x, y, currentMessage);
+            g.setForegroundColor(TextColor.ANSI.WHITE);
+            messageTimer--;
+        }
+    }
+
+    public void showMessage(String s){
+        this.currentMessage = s;
+        this.messageTimer = 50;
     }
 }
