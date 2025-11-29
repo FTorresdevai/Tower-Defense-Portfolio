@@ -23,7 +23,7 @@ public class PlayState implements State {
             if (context.getArena().isPlaceable(x, y)) {
                 context.setState(new ShopState(x, y));
             } else {
-                context.getHUD().showMessage("Posicao Invalida!");
+                context.getHUD().showMessage("Invalid Position!");
             }
             return;
         }

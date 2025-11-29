@@ -191,11 +191,9 @@ public class Arena implements Subject{
         }
     }
 
-    // --- CORREÇÃO AQUI ---
     public boolean isPlaceable(int x, int y) {
         Position pos = new Position(x, y);
         Shape dummyShape = new Shape();
-        // Usa getPixels().add em vez de addPixel
         dummyShape.getPixels().add(new Pixel(0,0,' '));
 
         if (path.isOnPath(pos, dummyShape)) return false;

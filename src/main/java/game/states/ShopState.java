@@ -69,7 +69,7 @@ public class ShopState implements State {
             context.getArena().removeGold(cost);
             context.setState(new PlayState());
         } else {
-            context.getHUD().showMessage("Sem Ouro Suficiente!");
+            context.getHUD().showMessage("Not enough gold!");
             context.setState(new PlayState());
         }
     }
