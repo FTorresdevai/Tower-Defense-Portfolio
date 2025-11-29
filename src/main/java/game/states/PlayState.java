@@ -11,7 +11,7 @@ public class PlayState implements State {
     public void handleInput(Game context, KeyStroke input) throws Exception {
         if (input == null) return;
 
-        if (input.getKeyType() == KeyType.Character && input.getCharacter() == 'p') {
+        if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'p') {
             context.setState(new PauseState());
             return;
         }
@@ -26,6 +26,10 @@ public class PlayState implements State {
                 context.getHUD().showMessage("Posicao Invalida!");
             }
             return;
+        }
+
+        if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'q') {
+            System.exit(0);
         }
 
         context.getArena().processKey(input);
@@ -46,4 +50,3 @@ public class PlayState implements State {
         context.getHUD().draw(g);
     }
 }
-

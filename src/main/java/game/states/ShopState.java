@@ -25,8 +25,7 @@ public class ShopState implements State {
             buyBasicTower(context);
         }
 
-        if (input.getKeyType() == KeyType.Escape ||
-                (input.getKeyType() == KeyType.Character && input.getCharacter() == 'b')) {
+        if (input.getKeyType() == KeyType.Escape) {
             context.setState(new PlayState());
         }
     }
@@ -59,7 +58,7 @@ public class ShopState implements State {
 
         g.setForegroundColor(TextColor.ANSI.CYAN);
         g.putString(x + 2, y + 8, "Press '1' to buy");
-        g.putString(x + 2, y + 9, "Press 'q' to cancel");
+        g.putString(x + 2, y + 9, "Press ESC to cancel");
     }
 
     private void buyBasicTower(Game context) {
