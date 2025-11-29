@@ -2,6 +2,7 @@ package game.states;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import game.Game;
 
 public class PauseState implements State {
@@ -12,6 +13,10 @@ public class PauseState implements State {
 
         if (input.getCharacter() != null && input.getCharacter() == 'r') {
             context.setState(new PlayState());
+        }
+
+        if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'q') {
+            System.exit(0);
         }
     }
 
