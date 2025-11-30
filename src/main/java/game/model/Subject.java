@@ -1,4 +1,4 @@
-package game;
+package game.model;
 
 public interface Subject {
     void attach(Observer o);

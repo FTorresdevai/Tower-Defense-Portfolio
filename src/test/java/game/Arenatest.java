@@ -1,6 +1,12 @@
 package game;
 
-import com.googlecode.lanterna.screen.Screen;
+import game.model.Arena;
+import game.model.Enemy;
+import game.model.Projectile;
+import game.model.Tower;
+import game.model.factories.EnemyFactory;
+import game.model.factories.ProjectileFactory;
+import game.model.factories.TowerFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;

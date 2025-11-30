@@ -1,4 +1,4 @@
-package game.states;
+package game.model.states;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -22,22 +22,6 @@ public class GameOverState implements State {
 
     @Override
     public void draw(Game context, TextGraphics g) throws Exception {
-        context.getArena().draw(g);
-        context.getHUD().drawStats(g);
-
-        int width = context.getArena().getWidth();
-        int height = context.getArena().getHeight();
-
-        String msg1 = "=== GAME OVER ===";
-        String msg2 = "Press 'm' to restart";
-
-        int x1 = (width - msg1.length()) / 2;
-        int y1 = height / 3;
-
-        int x2 = (width - msg2.length()) / 2;
-        int y2 = y1 + 2;
-
-        g.putString(x1, y1, msg1);
-        g.putString(x2, y2, msg2);
+        new game.view.GameOverView().draw(context.getArena(), context.getHUD(), g);
     }
 }

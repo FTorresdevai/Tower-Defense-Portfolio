@@ -1,5 +1,8 @@
 package game;
 
+import game.model.Shape;
+import game.model.Tower;
+import game.model.factories.TowerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

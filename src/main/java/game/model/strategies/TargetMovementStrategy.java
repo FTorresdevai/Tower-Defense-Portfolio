@@ -1,4 +1,7 @@
-package game;
+package game.model.strategies;
+
+import game.model.Enemy;
+import game.model.Position;
 
 public class TargetMovementStrategy implements MovementStrategy {
     private Enemy target;

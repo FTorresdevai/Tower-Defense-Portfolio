@@ -1,0 +1,65 @@
+package game.view;
+
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+import game.model.Arena;
+import game.model.GameHUD;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class HUDview {
+
+    public void draw(GameHUD hud, Arena arena, TextGraphics g) {
+        drawStats(hud, g);
+        drawControls(arena, g);
+        drawMessage(hud, arena, g);
+    }
+
+    public void drawStats(GameHUD hud, TextGraphics g) {
+        g.putString(2, 0, "Gold: " + hud.getGold());
+        g.putString(15, 0, "Lives: " + hud.getLives());
+        g.putString(30, 0, "Wave: " + hud.getWave());
+    }
+
+    public void drawControls(Arena arena, TextGraphics g) {
+        List<Integer> msgs_length = new ArrayList<Integer>();
+        List<String> msgs = new ArrayList<>();
+
+        String msg1 = "P->Pause";
+        msgs_length.add(msg1.length());
+        msgs.add(msg1);
+
+        String msg2 = "Q->Quit";
+        msgs_length.add(msg2.length());
+        msgs.add(msg2);
+
+        String msg3 = "B->Buy Tower(store)";
+        msgs_length.add(msg3.length());
+        msgs.add(msg3);
+
+        String msg4 = "U->Undo Tower";
+        msgs_length.add(msg4.length());
+        msgs.add(msg4);
+
+        int maxLen = Collections.max(msgs_length);
+        int x = arena.getWidth() - maxLen - 2;
+
+        int y = 0;
+        for (String m : msgs) {
+            g.putString(x,y,m);
+            y += 1;
+        }
+    }
+
+    public void drawMessage(GameHUD hud, Arena arena, TextGraphics g){
+        if (hud.getMessageTimer() > 0) {
+            g.setForegroundColor(TextColor.ANSI.RED);
+            int width = arena.getWidth();
+            int x = (width - hud.getCurrentMessage().length()) / 2;
+            int y = 5;
+            g.putString(x, y, hud.getCurrentMessage());
+            g.setForegroundColor(TextColor.ANSI.WHITE);
+        }
+    }
+}

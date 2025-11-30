@@ -1,4 +1,7 @@
-package game;
+package game.model.factories;
+
+import game.model.Shape;
+import game.model.Tower;
 
 public class TowerFactory {
 

@@ -1,5 +1,8 @@
 package game;
 
+import game.model.Enemy;
+import game.model.Path;
+import game.model.Shape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +25,8 @@ class EnemyTest {
     @Test
     public void testMoveTowardsTarget() {
         enemy.update();
-        assertEquals(1.0f, enemy.getPosition().getX(), "game.Enemy X should have moved 1 unit");
-        assertEquals(10.0f, enemy.getPosition().getY(), "game.Enemy Y position should remain the same");
+        assertEquals(1.0f, enemy.getPosition().getX(), "game.model.Enemy X should have moved 1 unit");
+        assertEquals(10.0f, enemy.getPosition().getY(), "game.model.Enemy Y position should remain the same");
     }
 
     @Test
@@ -32,7 +35,7 @@ class EnemyTest {
         enemy.update();
 
         assertEquals(10.0f, enemy.getPosition().getX());
-        assertTrue(enemy.hasReachedEnd(), "game.Enemy should have ended");
+        assertTrue(enemy.hasReachedEnd(), "game.model.Enemy should have ended");
 
     }
 
@@ -43,9 +46,9 @@ class EnemyTest {
         enemy.update();
 
         assertEquals(10.0f, enemy.getPosition().getX());
-        assertFalse(enemy.hasReachedEnd(), "game.Enemy should not have ended");
+        assertFalse(enemy.hasReachedEnd(), "game.model.Enemy should not have ended");
         enemy.update();
-        assertTrue(enemy.hasReachedEnd(), "game.Enemy should have ended");
+        assertTrue(enemy.hasReachedEnd(), "game.model.Enemy should have ended");
 
     }
 

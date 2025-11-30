@@ -1,4 +1,7 @@
-package game;
+package game.model.strategies;
+
+import game.model.Path;
+import game.model.Position;
 
 public class PathMovementStrategy implements MovementStrategy {
     private Path path;

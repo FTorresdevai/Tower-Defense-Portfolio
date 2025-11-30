@@ -1,14 +1,12 @@
-package game;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
+package game.model;
+
+import game.model.factories.EnemyFactory;
+import game.model.factories.ProjectileFactory;
+import game.model.factories.TowerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Arena implements Subject{
+public class Arena implements Subject {
     private int width;
     private int height;
     private Path path;
@@ -136,44 +134,20 @@ public class Arena implements Subject{
         }
     }
 
-    public void processKey(KeyStroke key) {
-        if (key == null) return;
-
-        switch (key.getKeyType()) {
-            case ArrowUp:
-                cursorY = Math.max(0, cursorY - 1);
-                break;
-            case ArrowDown:
-                cursorY = Math.min(height - 1, cursorY + 1);
-                break;
-            case ArrowLeft:
-                cursorX = Math.max(0, cursorX - 1);
-                break;
-            case ArrowRight:
-                cursorX = Math.min(width - 1, cursorX + 1);
-                break;
-            default:
-                break;
-        }
-
-        if (key.getKeyType() == KeyType.Character) {
-            char c = key.getCharacter();
-            if (c == 'w') cursorY = Math.max(0, cursorY - 1);
-            if (c == 's') cursorY = Math.min(height - 1, cursorY + 1);
-            if (c == 'a') cursorX = Math.max(0, cursorX - 1);
-            if (c == 'd') cursorX = Math.min(width - 1, cursorX + 1);
-        }
+    public void moveCursorUp() {
+        cursorY = Math.max(0, cursorY - 1);
     }
 
-    public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-        path.draw(graphics);
-        for (Tower t : towers) t.draw(graphics);
-        for (Enemy e : enemies) e.draw(graphics);
-        for (Projectile p : projectiles) p.draw(graphics);
-        graphics.setForegroundColor(TextColor.ANSI.WHITE);
-        graphics.putString(cursorX, cursorY, "X");
+    public void moveCursorDown() {
+        cursorY = Math.min(height - 1, cursorY + 1);
+    }
+
+    public void moveCursorLeft() {
+        cursorX = Math.max(0, cursorX - 1);
+    }
+
+    public void moveCursorRight() {
+        cursorX = Math.min(width - 1, cursorX + 1);
     }
 
     public boolean isGameOver() {

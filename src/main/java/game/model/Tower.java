@@ -1,7 +1,4 @@
-package game;
-
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+package game.model;
 
 public class Tower implements GameObject {
     private Position position;
@@ -37,14 +34,5 @@ public class Tower implements GameObject {
         return dx * dx + dy * dy <= range * range;
     }
 
-    @Override
-    public void draw(TextGraphics g) {
-        g.setForegroundColor(TextColor.ANSI.WHITE);
-        for (Pixel px : shape.getPixels()) {
-            int x = (int) position.getX() + px.getDx();
-            int y = (int) position.getY() + px.getDy();
-            g.putString(x, y, String.valueOf(px.getChar()));
-        }
-    }
 }
 

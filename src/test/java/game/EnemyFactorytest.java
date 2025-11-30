@@ -1,5 +1,8 @@
 package game;
 
+import game.model.Enemy;
+import game.model.Path;
+import game.model.factories.EnemyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

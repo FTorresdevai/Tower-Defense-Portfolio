@@ -8,8 +8,10 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import game.states.PlayState;
-import game.states.State;
+import game.model.Arena;
+import game.model.GameHUD;
+import game.model.states.PlayState;
+import game.model.states.State;
 import java.io.IOException;
 
 public class Game {
@@ -51,6 +53,7 @@ public class Game {
     public void run() throws IOException {
         while (true) {
             KeyStroke key = screen.pollInput();
+            hud.tickMessage();
 
             if (key != null && key.getKeyType() == KeyType.EOF) {
                 break;

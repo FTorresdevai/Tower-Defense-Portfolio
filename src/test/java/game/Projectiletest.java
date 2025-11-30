@@ -1,5 +1,9 @@
 package game;
 
+import game.model.Enemy;
+import game.model.Position;
+import game.model.Projectile;
+import game.model.Shape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

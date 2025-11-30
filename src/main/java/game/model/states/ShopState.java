@@ -1,11 +1,11 @@
-package game.states;
+package game.model.states;
 
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import game.Game;
-import game.TowerFactory;
+import game.model.factories.TowerFactory;
+import game.view.ShopStateView;
 
 public class ShopState implements State {
 
@@ -31,34 +31,12 @@ public class ShopState implements State {
     }
 
     @Override
-    public void update(Game context) throws Exception {
+    public void draw(Game context, TextGraphics g) throws Exception {
+        new ShopStateView().draw(context.getArena(), context.getHUD(), g);
     }
 
     @Override
-    public void draw(Game context, TextGraphics g) throws Exception {
-        context.getArena().draw(g);
-
-        int width = 30;
-        int height = 10;
-        int x = (context.getArena().getWidth() - width) / 2;
-        int y = 5;
-
-        g.setBackgroundColor(TextColor.ANSI.BLACK);
-        g.setForegroundColor(TextColor.ANSI.WHITE);
-
-        for (int i = 0; i < height; i++) {
-            g.putString(x, y + i, " ".repeat(width));
-        }
-
-        g.setForegroundColor(TextColor.ANSI.RED);
-        g.putString(x + 2, y + 1, "--- TOWER STORE ---");
-
-        g.setForegroundColor(TextColor.ANSI.WHITE);
-        g.putString(x + 2, y + 3, "1. Basic Tower (50g)");
-
-        g.setForegroundColor(TextColor.ANSI.CYAN);
-        g.putString(x + 2, y + 8, "Press '1' to buy");
-        g.putString(x + 2, y + 9, "Press ESC to cancel");
+    public void update(Game context) throws Exception {
     }
 
     private void buyBasicTower(Game context) {

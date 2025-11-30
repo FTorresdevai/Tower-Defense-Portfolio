@@ -1,6 +1,8 @@
 
 package game;
 import com.googlecode.lanterna.screen.Screen;
+import game.model.Arena;
+import game.model.GameHUD;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

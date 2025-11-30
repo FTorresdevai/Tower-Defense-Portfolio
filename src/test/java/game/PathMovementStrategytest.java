@@ -1,5 +1,8 @@
 package game;
 
+import game.model.Path;
+import game.model.Position;
+import game.model.strategies.PathMovementStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

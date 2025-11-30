@@ -1,7 +1,6 @@
-package game;
+package game.model;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import game.model.strategies.PathMovementStrategy;
 
 public class Enemy implements GameObject {
     private Shape shape;
@@ -29,13 +28,4 @@ public class Enemy implements GameObject {
         return movementStrategy.isFinished();
     }
 
-    @Override
-    public void draw(TextGraphics g) {
-        g.setForegroundColor(TextColor.ANSI.RED);
-        for (Pixel px : shape.getPixels()) {
-            int x = (int) position.getX() + px.getDx();
-            int y = (int) position.getY() + px.getDy();
-            g.putString(x, y, String.valueOf(px.getChar()));
-        }
-    }
 }

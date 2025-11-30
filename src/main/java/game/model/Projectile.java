@@ -1,7 +1,6 @@
-package game;
+package game.model;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import game.model.strategies.TargetMovementStrategy;
 
 public class Projectile implements GameObject {
     private Position position;
@@ -36,16 +35,6 @@ public class Projectile implements GameObject {
         if (Math.abs(position.getX() - tPos.getX()) < 1.0 && Math.abs(position.getY() - tPos.getY()) < 1.0) {
             alive = false;
             hitTarget = true;
-        }
-    }
-
-    @Override
-    public void draw(TextGraphics g) {
-        g.setForegroundColor(TextColor.ANSI.YELLOW);
-        for (Pixel px : shape.getPixels()) {
-            int x = (int) position.getX() + px.getDx();
-            int y = (int) position.getY() + px.getDy();
-            g.putString(x, y, String.valueOf(px.getChar()));
         }
     }
 }

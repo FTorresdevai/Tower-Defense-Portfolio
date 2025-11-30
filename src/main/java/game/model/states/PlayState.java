@@ -1,5 +1,7 @@
-package game.states;
+package game.model.states;
 
+import game.view.ArenaView;
+import game.view.HUDview;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -32,7 +34,26 @@ public class PlayState implements State {
             System.exit(0);
         }
 
-        context.getArena().processKey(input);
+        if (input.getKeyType() == KeyType.ArrowUp) {
+            context.getArena().moveCursorUp();
+        }
+        else if (input.getKeyType() == KeyType.ArrowDown) {
+            context.getArena().moveCursorDown();
+        }
+        else if (input.getKeyType() == KeyType.ArrowLeft) {
+            context.getArena().moveCursorLeft();
+        }
+        else if (input.getKeyType() == KeyType.ArrowRight) {
+            context.getArena().moveCursorRight();
+        }
+
+        if (input.getKeyType() == KeyType.Character) {
+            char c = Character.toLowerCase(input.getCharacter());
+            if (c == 'w') context.getArena().moveCursorUp();
+            if (c == 's') context.getArena().moveCursorDown();
+            if (c == 'a') context.getArena().moveCursorLeft();
+            if (c == 'd') context.getArena().moveCursorRight();
+        }
     }
 
     @Override
@@ -46,7 +67,7 @@ public class PlayState implements State {
 
     @Override
     public void draw(Game context, TextGraphics g) throws Exception {
-        context.getArena().draw(g);
-        context.getHUD().draw(g);
+        new ArenaView().draw(context.getArena(), g);
+        new HUDview().draw(context.getHUD(), context.getArena(), g);
     }
 }

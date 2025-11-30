@@ -1,4 +1,8 @@
-package game;
+package game.model.factories;
+
+import game.model.Shape;
+import game.model.Enemy;
+import game.model.Projectile;
 
 public class ProjectileFactory {
 

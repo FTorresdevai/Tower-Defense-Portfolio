@@ -1,10 +1,13 @@
 package game.states;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
-import game.Arena;
+import game.model.Arena;
 import game.Game;
-import game.GameHUD;
+import game.model.GameHUD;
+import game.model.states.GameOverState;
+import game.model.states.PauseState;
+import game.model.states.PlayState;
+import game.model.states.ShopState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
