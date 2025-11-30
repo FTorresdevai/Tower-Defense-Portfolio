@@ -330,8 +330,93 @@ The arena now requests entities from the factories not needing to instantiate th
 
   The only trade-off is the introduction of more classes and interfaces, but the structural improvement totally justifies it.
 - 
-### 
 
+### MANAGING GAME MENUS (SHOP MENU, PAUSE MENU, GAME OVER)
+
+- **Problem in Context:** As the project evolved, we needed to introduce different game screens such as a Shop(where the player could buy towers), a Pause screen, and a Game Over screen. Implementing this logic directly inside the main `Game` loop using conditional statements (`if-else` or `switch`) would make the code rigid and difficult to maintain. The `Game` class would be forced to know how to handle input and rendering for every single context, leading to several design issues:
+    - **Violation of the Single Responsibility Principle (SRP):** The `Game` class would become a "God Class", managing not only the game loop execution but also the specific logic, input, and visuals for the Shop, Pause, and Gameplay simultaneously.
+    - **Violation of the Open/Closed Principle (OCP):** Introducing a new state, like a "PauseState" or a "Game Over", would require modifying the core `Game` class and its complex conditional logic, increasing the risk of breaking existing functionality.
+    - **Violation of the High Cohesion Principle:** The Game class would contain unrelated logic (e.g., buying items in the shop vs. moving enemies in the arena), making the code harder to read and debug since distinct behaviors would be mixed in the same file.
+    - **Tight Coupling:** The main game loop would be tightly coupled to the concrete implementation of every screen. Changing how the Shop worked would inadvertently affect how the Game loop processed inputs
+
+- **The Pattern:** We applied the **State Pattern** to represent the different phases of the application as separate classes. This allows the `Game` context to delegate behavior to the current active state object. This pattern is adequate because:
+    - the behavior of the application (input, update, draw) changes completely depending on the current state;
+    - each state (Play, Pause, Shop) has its own specific dependencies (Views and Controllers);
+    - it simplifies transitions, as we can simply switch the current `State` object reference.
+
+- **Implementation:** The implementation relies on a common `State` interface and concrete implementations that manage their own MVC components:
+
+<p align="center" justify="center">
+  <img src="images/state_pattern.png" width="60%"/>
+</p>
+<p align="center">
+  <b><i>Fig. 4 — State Pattern UML Diagram</i></b>
+</p>
+
+- *State Interface:*
+
+    ```java
+  public interface State {
+      void handleInput(Game context, KeyStroke input) throws Exception;
+      void update(Game context) throws Exception;
+      void draw(Game context, TextGraphics g) throws Exception;
+  }
+  ```
+
+- *Concrete State(PlayState):*
+```java 
+  public class PlayState implements State {
+    private final PlayStateController controller = new PlayStateController();
+    private final ArenaView arenaView = new ArenaView();
+    private final HUDview hudView = new HUDview();
+
+    @Override
+    public void handleInput(Game context, KeyStroke input) throws Exception {
+        controller.handleInput(context, input);
+    }
+
+    @Override
+    public void update(Game context) throws Exception {
+        controller.update(context);
+    }
+
+    @Override
+    public void draw(Game context, TextGraphics g) throws Exception {
+        arenaView.draw(context.getArena(), g);
+        hudView.draw(context.getHUD(), context.getArena(), g);
+    }
+}
+   ```
+-*Context(Game):*
+```java
+    public class Game {
+    private State currentState;
+
+    public Game() throws IOException {
+        currentState = new PlayState();
+    }
+
+    public void setState(State next) {
+        this.currentState = next;
+    }
+
+    public void run() throws IOException {
+        while (true) {
+            KeyStroke key = screen.pollInput();
+            try {
+                currentState.handleInput(this, key);
+                currentState.update(this);
+                draw(); 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        screen.close();
+    }
+}
+```
+
+- **Consequences:** Applying this pattern significantly cleaned up our `Game` class. It no longer needs to know specific details about the Shop or Pause menu; it simply delegates that responsibility. This enforces the **Single Responsibility Principle**, as each State manages its own logic, and facilitates the **Open/Closed Principle**, allowing us to add new screens without touching the main loop. While this approach requires creating more classes, the gain in organization and clarity makes the trade-off completely worthwhile.
 ### TESTING
 
 <p align="center" justify="center">
@@ -339,7 +424,7 @@ The arena now requests entities from the factories not needing to instantiate th
 </p>
 
 <p align="center">
-  <b><i>Fig. 4 — Coverage Report</i></b>
+  <b><i>Fig. 5 — Coverage Report</i></b>
 </p>
 
 ### SELF-EVALUATION
