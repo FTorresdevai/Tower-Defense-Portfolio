@@ -2,55 +2,31 @@ package game.states;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import game.Game;
-import game.audio.SoundManager;
-import game.model.factories.TowerFactory;
+import game.controller.ShopStateController;
 import game.view.ShopStateView;
 
 public class ShopState implements State {
 
-    private int targetX;
-    private int targetY;
+    private final ShopStateController controller;
+    private final ShopStateView view = new ShopStateView();
 
     public ShopState(int x, int y) {
-        this.targetX = x;
-        this.targetY = y;
+        this.controller = new ShopStateController(x, y);
     }
 
     @Override
     public void handleInput(Game context, KeyStroke input) throws Exception {
-        if (input == null) return;
-
-        if (input.getKeyType() == KeyType.Character && input.getCharacter() == '1') {
-            buyBasicTower(context);
-        }
-
-        if (input.getKeyType() == KeyType.Escape) {
-            context.setState(new PlayState());
-        }
+        controller.handleInput(context, input);
     }
 
     @Override
     public void draw(Game context, TextGraphics g) throws Exception {
-        new ShopStateView().draw(context.getArena(), context.getHUD(), g);
+        view.draw(context.getArena(), context.getHUD(), g);
     }
 
     @Override
     public void update(Game context) throws Exception {
-    }
-
-    private void buyBasicTower(Game context) {
-        int cost = 50;
-
-        if (context.getArena().getGold() >= cost) {
-            SoundManager.getInstance().play("sfx_bought");
-            context.getArena().addTower(TowerFactory.createBasicTower(targetX, targetY));
-            context.getArena().removeGold(cost);
-            context.setState(new PlayState());
-        } else {
-            context.getHUD().showMessage("Not enough gold!");
-            context.setState(new PlayState());
-        }
+        controller.update(context);
     }
 }
