@@ -2,8 +2,6 @@ package game.states;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import game.Game;
-import game.model.states.PauseState;
-import game.model.states.PlayState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

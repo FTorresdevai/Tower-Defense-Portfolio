@@ -1,4 +1,4 @@
-package game.model.states;
+package game.states;
 
 import game.audio.SoundManager;
 import game.view.ArenaView;

@@ -10,8 +10,8 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import game.model.Arena;
 import game.model.GameHUD;
-import game.model.states.PlayState;
-import game.model.states.State;
+import game.states.PlayState;
+import game.states.State;
 import java.io.IOException;
 import game.audio.SoundManager;
 
