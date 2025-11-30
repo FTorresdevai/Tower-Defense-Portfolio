@@ -1,5 +1,6 @@
 package game.model.states;
 
+import game.audio.SoundManager;
 import game.view.ArenaView;
 import game.view.HUDview;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -15,12 +16,15 @@ public class PlayState implements State {
 
         if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'p') {
             context.setState(new PauseState());
+            SoundManager.getInstance().play("sfx_menuchange");
             return;
         }
 
         if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'b') {
             int x = context.getArena().getCursorX();
             int y = context.getArena().getCursorY();
+
+            SoundManager.getInstance().play("sfx_menuchange");
 
             if (context.getArena().isPlaceable(x, y)) {
                 context.setState(new ShopState(x, y));
@@ -58,7 +62,20 @@ public class PlayState implements State {
 
     @Override
     public void update(Game context) throws Exception {
+        int before = context.getArena().getProjectiles().size();
+        int enemiesBefore = context.getArena().getEnemies().size();
+
         context.getArena().update();
+
+        int after = context.getArena().getProjectiles().size();
+        if (after > before) {
+            SoundManager.getInstance().play("sfx_shoot");
+        }
+
+        int enemiesAfter = context.getArena().getEnemies().size();
+        if (enemiesAfter < enemiesBefore) {
+            SoundManager.getInstance().play("sfx_coin_enemydeath");
+        }
 
         if (context.getArena().isGameOver()) {
             context.setState(new GameOverState());

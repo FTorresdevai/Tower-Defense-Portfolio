@@ -4,6 +4,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import game.Game;
+import game.audio.SoundManager;
 import game.model.factories.TowerFactory;
 import game.view.ShopStateView;
 
@@ -43,6 +44,7 @@ public class ShopState implements State {
         int cost = 50;
 
         if (context.getArena().getGold() >= cost) {
+            SoundManager.getInstance().play("sfx_bought");
             context.getArena().addTower(TowerFactory.createBasicTower(targetX, targetY));
             context.getArena().removeGold(cost);
             context.setState(new PlayState());

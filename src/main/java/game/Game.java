@@ -13,6 +13,8 @@ import game.model.GameHUD;
 import game.model.states.PlayState;
 import game.model.states.State;
 import java.io.IOException;
+import game.audio.SoundManager;
+
 
 public class Game {
     private Screen screen;
@@ -28,6 +30,11 @@ public class Game {
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
+        SoundManager sm = SoundManager.getInstance();
+        sm.loadAssetAsync("sfx_shoot", "/sounds/sfx_shoot.wav");
+        sm.loadAssetAsync("sfx_coin_enemydeath", "/sounds/sfx_coin_enemydeath.wav");
+        sm.loadAssetAsync("sfx_menuchange", "/sounds/sfx_menuchange.wav");
+        sm.loadAssetAsync("sfx_bought", "/sounds/sfx_bought.wav");
 
         arena = new Arena(80, 24);
         hud = new GameHUD(arena);
