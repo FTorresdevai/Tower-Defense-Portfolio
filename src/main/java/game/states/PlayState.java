@@ -7,6 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import game.Game;
 
+
 public class PlayState implements State {
     private final PlayStateController controller = new PlayStateController();
     private final ArenaView arenaView = new ArenaView();
@@ -28,3 +29,4 @@ public class PlayState implements State {
         hudView.draw(context.getHUD(), context.getArena(), g);
     }
 }
+

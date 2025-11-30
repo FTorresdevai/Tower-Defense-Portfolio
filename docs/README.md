@@ -329,6 +329,8 @@ The arena now requests entities from the factories not needing to instantiate th
     - the code respects SRP since mechanics and visual updates are completely separated;
 
   The only trade-off is the introduction of more classes and interfaces, but the structural improvement totally justifies it.
+- 
+### 
 
 ### TESTING
 
