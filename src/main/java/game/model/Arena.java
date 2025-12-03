@@ -15,7 +15,7 @@ public class Arena implements Subject {
     private List<Tower> towers = new ArrayList<>();
     private int cursorX = 10;
     private int cursorY = 10;
-    private int gold = 100;
+    private int gold = 1000;
     private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
@@ -24,7 +24,6 @@ public class Arena implements Subject {
         this.width = width;
         this.height = height;
         createPath();
-        createExampleTowers();
         createExampleEnemies();
     }
 
@@ -78,9 +77,6 @@ public class Arena implements Subject {
         enemies.add(EnemyFactory.createBasicEnemy(0, 5, path));
     }
 
-    private void createExampleTowers() {
-        towers.add(TowerFactory.createBasicTower(54, 13));
-    }
 
     private void explodeAOE(Enemy center) {
         int radius = 3;
