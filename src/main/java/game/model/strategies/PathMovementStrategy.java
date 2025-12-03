@@ -18,14 +18,15 @@ public class PathMovementStrategy implements MovementStrategy {
     }
 
     @Override
-    public void move(Position position) {
+    public void move(Position position, float speedModifier) {
         if (isFinished()) return;
         Position targetNode = path.getNodes().get(currentNodeIndex);
+        float step = speed * speedModifier;
 
-        if (position.getX() < targetNode.getX()) position.setX(position.getX() + speed);
-        if (position.getX() > targetNode.getX()) position.setX(position.getX() - speed);
-        if (position.getY() < targetNode.getY()) position.setY(position.getY() + speed);
-        if (position.getY() > targetNode.getY()) position.setY(position.getY() - speed);
+        if (position.getX() < targetNode.getX()) position.setX(position.getX() + step);
+        if (position.getX() > targetNode.getX()) position.setX(position.getX() - step);
+        if (position.getY() < targetNode.getY()) position.setY(position.getY() + step);
+        if (position.getY() > targetNode.getY()) position.setY(position.getY() - step);
 
         if (Math.abs(position.getX() - targetNode.getX()) < 1.0 && Math.abs(position.getY() - targetNode.getY()) < 1.0) {
             position.setX(targetNode.getX());

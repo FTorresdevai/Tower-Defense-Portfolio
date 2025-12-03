@@ -17,7 +17,7 @@ public class TargetMovementStrategy implements MovementStrategy {
     }
 
     @Override
-    public void move(Position position) {
+    public void move(Position position, float speedModifier) {
         if (target == null) return;
         Position tPos = target.getPosition();
 

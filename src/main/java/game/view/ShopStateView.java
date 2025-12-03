@@ -11,8 +11,8 @@ public class ShopStateView {
         new ArenaView().draw(arena, g);
         new HUDview().draw(hud, arena, g);
 
-        int width = 30;
-        int height = 10;
+        int width = 60;
+        int height = 18;
         int x = (arena.getWidth() - width) / 2;
         int y = 5;
 
@@ -28,9 +28,16 @@ public class ShopStateView {
 
         g.setForegroundColor(TextColor.ANSI.WHITE);
         g.putString(x + 2, y + 3, "1. Basic Tower (50g)");
+        g.putString(x + 2, y + 4, "2. Rapid Tower (65g)");
+        g.putString(x + 2, y + 5, "3. Sniper Tower (120g)");
+        g.putString(x + 2, y + 6, "4. Bomb Tower (150g)");
+        g.putString(x + 2, y + 7, "5. Frost Tower (80)");
+        g.putString(x + 2, y + 8, "6. Tesla Tower (180)");
+
+
 
         g.setForegroundColor(TextColor.ANSI.CYAN);
-        g.putString(x + 2, y + 8, "Press '1' to buy");
-        g.putString(x + 2, y + 9, "Press ESC to cancel");
+        g.putString(x + 2, y + 16, "Press '1' to buy");
+        g.putString(x + 2, y + 17, "Press ESC to cancel");
     }
 }

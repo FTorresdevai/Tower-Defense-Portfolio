@@ -82,6 +82,75 @@ public class Arena implements Subject {
         towers.add(TowerFactory.createBasicTower(54, 13));
     }
 
+    private void explodeAOE(Enemy center) {
+        int radius = 3;
+
+        for (Enemy e : new ArrayList<>(enemies)) {
+            float dx = e.getPosition().getX() - center.getPosition().getX();
+            float dy = e.getPosition().getY() - center.getPosition().getY();
+
+            if (dx*dx + dy*dy <= radius * radius) {
+                e.takeDamage(3);
+                if (e.isDead()) {
+                    enemies.remove(e);
+                    gold += 5;
+                    notifyObservers();
+                }
+
+            }
+        }
+    }
+    private void chainLightning(Enemy firstTarget) {
+
+        firstTarget.takeDamage(2);
+
+        if (firstTarget.isDead()) {
+            enemies.remove(firstTarget);
+            gold += 5;
+        }
+
+        int chains = 3;
+        float chainRange = 5;
+
+        Enemy source = firstTarget;
+
+        for (int i = 0; i < chains; i++) {
+            Enemy next = findClosestEnemy(source, chainRange);
+            if (next == null) break;
+
+            next.takeDamage(2);
+
+            if (next.isDead()) {
+                enemies.remove(next);
+                gold += 5;
+            }
+
+            source = next;
+        }
+
+        notifyObservers();
+    }
+
+    private Enemy findClosestEnemy(Enemy from, float range) {
+        Enemy best = null;
+        float bestDist = Float.MAX_VALUE;
+
+        for (Enemy e : enemies) {
+            if (e == from) continue;
+
+            float dx = e.getPosition().getX() - from.getPosition().getX();
+            float dy = e.getPosition().getY() - from.getPosition().getY();
+            float dist = dx*dx + dy*dy;
+
+            if (dist < bestDist && dist <= range * range) {
+                bestDist = dist;
+                best = e;
+            }
+        }
+        return best;
+    }
+
+
     public void update() {
         List<Enemy> enemiesToRemove = new ArrayList<>();
         for (Enemy e : enemies) {
@@ -100,12 +169,17 @@ public class Arena implements Subject {
             if (!t.canShoot()) continue;
 
             for (Enemy e : enemies) {
+                if(e.isCamo() && !t.canSeeCamo()) continue;
+
                 if (t.isInRange(e.getPosition())) {
-                    projectiles.add(ProjectileFactory.createBasicProjectile(
+                    Projectile p = ProjectileFactory.createBasicProjectile(
                             (int) t.getPosition().getX(),
                             (int) t.getPosition().getY(),
                             e
-                    ));
+                    );
+                    p.setDamage(t.getDamage());
+                    p.setTowerType(t.getTowerType());
+                    projectiles.add(p);
                     t.resetCooldown();
                     break;
                 }
@@ -113,25 +187,40 @@ public class Arena implements Subject {
         }
 
         List<Projectile> projectilesToRemove = new ArrayList<>();
-        List<Enemy> hitEnemies = new ArrayList<>();
+        List<Enemy> deadEnemiesToRemove = new ArrayList<>();
 
         for (Projectile p : projectiles) {
             p.update();
             if (p.hasHitTarget()) {
+                Enemy target = p.getTarget();
+                if (p.getTowerType().equals("bomb")) {
+                    explodeAOE(target);
+                }
+                else if (p.getTowerType().equals("tesla")) {
+                    chainLightning(target);
+                }
+                else if (p.getTowerType().equals("frost")) {
+                    target.applySlow(0.5f,50);
+                }
+                else {
+                    target.takeDamage(p.getDamage());
+
+
+                    if (target.isDead()) {
+                        deadEnemiesToRemove.add(target);
+                        gold += 5;
+                        notifyObservers();
+                    }
+                }
                 projectilesToRemove.add(p);
-                hitEnemies.add(p.getTarget());
             } else if (!p.isAlive()) {
                 projectilesToRemove.add(p);
             }
         }
 
         projectiles.removeAll(projectilesToRemove);
-        enemies.removeAll(hitEnemies);
+        enemies.removeAll(deadEnemiesToRemove);
 
-        if (!hitEnemies.isEmpty()) {
-            gold += 5;
-            notifyObservers();
-        }
     }
 
     public void moveCursorUp() {
