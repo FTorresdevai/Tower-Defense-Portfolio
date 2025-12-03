@@ -1,5 +1,5 @@
 package game;
-
+import game.audio.SoundManager;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -13,7 +13,7 @@ import game.model.GameHUD;
 import game.states.PlayState;
 import game.states.State;
 import java.io.IOException;
-import game.audio.SoundManager;
+
 
 
 public class Game {
