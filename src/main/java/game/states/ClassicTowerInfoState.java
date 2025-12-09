@@ -40,14 +40,24 @@ public class ClassicTowerInfoState implements State {
 
             if (c == 'y') {
                 int cost = 50;
+                Shape shape = TowerFactory.getBasicTowerShape();
+
+                if (!context.getArena().isPlaceable(x, y, shape)) {
+                    ShopState shop = new ShopState(x, y);
+                    shop.setErrorMessage("Invalid placement!");
+                    context.setState(shop);
+                    return;
+                }
+
                 if (context.getArena().getGold() >= cost) {
                     SoundManager.getInstance().play("sfx_bought");
                     context.getArena().addTower(TowerFactory.createBasicTower(x, y));
                     context.getArena().removeGold(cost);
                     context.setState(new PlayState());
                 } else {
-                    context.getHUD().showMessage("Not enough gold!");
-                    context.setState(new ShopState(x, y));
+                    ShopState shop = new ShopState(x, y);
+                    shop.setErrorMessage("Not enough gold!");
+                    context.setState(shop);
                 }
             }
 
@@ -63,7 +73,7 @@ public class ClassicTowerInfoState implements State {
 
 
     @Override
-    public void draw(Game context, TextGraphics g) throws Exception {
+    public void draw(Game context, TextGraphics g) {
         g.putString(10, 5, "=== CLASSIC TOWER ===");
         g.putString(10, 7, "Damage: 1");
         g.putString(10, 8, "Range: 6");
@@ -72,10 +82,10 @@ public class ClassicTowerInfoState implements State {
         g.putString(10, 14, "Press Y to buy");
         g.putString(10, 15, "Press N to return");
 
-
-        Shape preview = TowerFactory.createBasicTower(0, 0).getShape();
+        Shape preview = TowerFactory.getBasicTowerShape();
         drawShapePreview(g, preview, 40, 10);
     }
+
 
 }
 

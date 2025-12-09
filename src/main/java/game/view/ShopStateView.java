@@ -4,10 +4,11 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import game.model.Arena;
 import game.model.GameHUD;
+import game.states.ShopState;
 
 public class ShopStateView {
 
-    public void draw(Arena arena, GameHUD hud, TextGraphics g)  throws Exception {
+    public void draw(Arena arena, GameHUD hud, ShopState shopState, TextGraphics g) throws Exception {
         new ArenaView().draw(arena, g);
         new HUDview().draw(hud, arena, g);
 
@@ -39,5 +40,11 @@ public class ShopStateView {
         g.setForegroundColor(TextColor.ANSI.CYAN);
         g.putString(x + 2, y + 16, "Press '1' to buy");
         g.putString(x + 2, y + 17, "Press ESC to cancel");
+
+        if (shopState.getErrorMessage() != null) {
+            g.setForegroundColor(TextColor.ANSI.RED);
+            g.putString(x + 2, y + 14, shopState.getErrorMessage());
+            g.setForegroundColor(TextColor.ANSI.WHITE);
+        }
     }
 }

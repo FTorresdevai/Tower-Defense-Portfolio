@@ -16,35 +16,39 @@ public class Path {
 
     public List<Position> getNodes() { return nodes; }
 
-    public boolean isOnPath(Position position, Shape shape) {
-        int minDx = 0; int maxDx = 0;
-        int minDy = 0; int maxDy = 0;
-
+    public boolean isOnPath(Position pos, Shape shape) {
         for (Pixel p : shape.getPixels()) {
-            if (p.getDx() < minDx) minDx = p.getDx();
-            if (p.getDx() > maxDx) maxDx = p.getDx();
-            if (p.getDy() < minDy) minDy = p.getDy();
-            if (p.getDy() > maxDy) maxDy = p.getDy();
+            int px = (int) pos.getX() + p.getDx();
+            int py = (int) pos.getY() + p.getDy();
+
+            if (isTileOnPath(px, py)) return true;
         }
+        return false;
+    }
 
-        int tMinX = (int) position.getX() + minDx;
-        int tMaxX = (int) position.getX() + maxDx;
-        int tMinY = (int) position.getY() + minDy;
-        int tMaxY = (int) position.getY() + maxDy;
-
+    private boolean isTileOnPath(int x, int y) {
         for (int i = 0; i < nodes.size() - 1; i++) {
-            Position p1 = nodes.get(i);
-            Position p2 = nodes.get(i + 1);
+            Position a = nodes.get(i);
+            Position b = nodes.get(i + 1);
 
-            int pMinX = Math.min((int) p1.getX(), (int) p2.getX());
-            int pMaxX = Math.max((int) p1.getX(), (int) p2.getX());
-            int pMinY = Math.min((int) p1.getY(), (int) p2.getY());
-            int pMaxY = Math.max((int) p1.getY(), (int) p2.getY());
+            int ax = (int) a.getX();
+            int ay = (int) a.getY();
+            int bx = (int) b.getX();
+            int by = (int) b.getY();
 
-            if (tMaxX >= pMinX && tMinX <= pMaxX && tMaxY >= pMinY && tMinY <= pMaxY) {
-                return true;
+            if (ay == by) {
+                if (y == ay && x >= Math.min(ax, bx) && x <= Math.max(ax, bx)) {
+                    return true;
+                }
+            }
+
+            if (ax == bx) {
+                if (x == ax && y >= Math.min(ay, by) && y <= Math.max(ay, by)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 }

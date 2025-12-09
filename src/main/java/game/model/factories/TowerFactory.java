@@ -67,7 +67,6 @@ public class TowerFactory {
         s.add(1, -2, ')');
 
         s.add(-1, -1, '(');
-        s.add(0, -1, ' ');
         s.add(1, -1, ')');
 
         s.add(0, 0, '(');
@@ -117,4 +116,95 @@ public class TowerFactory {
         t.setTowerType("tesla");
         return t;
     }
+
+    public static Shape getBasicTowerShape() {
+        Shape pyramid = new Shape();
+
+        pyramid.add(0, -2, '^');
+        pyramid.add(-1, -1, '^');
+        pyramid.add(0, -1, '^');
+        pyramid.add(1, -1, '^');
+
+        pyramid.add(-2, 0, '^');
+        pyramid.add(-1, 0, '^');
+        pyramid.add(0, 0, '^');
+        pyramid.add(1, 0, '^');
+        pyramid.add(2, 0, '^');
+
+        return pyramid;
+    }
+
+    public static Shape getRapidTowerShape() {
+        Shape gun = new Shape();
+
+        gun.add(0, -2, '|');
+        gun.add(0, -1, '|');
+        gun.add(1, -2, '|');
+        gun.add(1, -1, '|');
+
+        gun.add(-1, 0, '[');
+        gun.add(0, 0, '=');
+        gun.add(1, 0, '=');
+        gun.add(2, 0, ']');
+
+        return gun;
+    }
+
+    public static Shape getSniperTowerShape() {
+        Shape s = new Shape();
+
+        s.add(0, -3, '^');
+        s.add(0, -2, '|');
+        s.add(0, -1, '|');
+        s.add(-1, 0, '/');
+        s.add(1, 0, '\\');
+
+        return s;
+    }
+
+    public static Shape getBombTowerShape() {
+        Shape s = new Shape();
+
+        s.add(0, -2, '(');
+        s.add(1, -2, ')');
+
+        s.add(-1, -1, '(');
+        s.add(1, -1, ')');
+
+        s.add(0, 0, '(');
+        s.add(1, 0, ')');
+
+        return s;
+    }
+
+    public static Shape getFrostTowerShape() {
+        Shape s = new Shape();
+
+        s.add(0, -2, '*');
+        s.add(-1, -1, '*');
+        s.add(0, -1, '*');
+        s.add(1, -1, '*');
+        s.add(0, 0, '*');
+
+        return s;
+    }
+
+    public static Shape getTeslaTowerShape() {
+        Shape s = new Shape();
+
+        s.add(-1, -2, '/');
+        s.add(1, -2, '\\');
+
+        s.add(-2, -1, '/');
+        s.add(-1, -1, '=');
+        s.add(0, -1, '=');
+        s.add(1, -1, '=');
+        s.add(2, -1, '\\');
+
+        s.add(-1, 0, '\\');
+        s.add(1, 0, '/');
+
+        return s;
+    }
+
 }

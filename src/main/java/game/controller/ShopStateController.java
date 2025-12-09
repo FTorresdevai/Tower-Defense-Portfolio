@@ -52,8 +52,4 @@ public class ShopStateController {
 
     public void update(Game context) throws Exception {
     }
-
-
-
-
 }

@@ -5,6 +5,8 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.input.KeyStroke;
 import game.Game;
 import game.audio.SoundManager;
+import game.model.Pixel;
+import game.model.Shape;
 import game.model.factories.TowerFactory;
 
 public class RapidTowerInfoState implements State {
@@ -17,23 +19,42 @@ public class RapidTowerInfoState implements State {
         this.y = y;
     }
 
+    private void drawShapePreview(TextGraphics g, Shape shape, int baseX, int baseY) {
+        for (Pixel p : shape.getPixels()) {
+            int drawX = baseX + p.getDx();
+            int drawY = baseY + p.getDy();
+            g.putString(drawX, drawY, String.valueOf(p.getChar()));
+        }
+    }
+
     @Override
     public void handleInput(Game context, KeyStroke input) throws Exception {
         if (input == null) return;
 
         if (input.getKeyType() == KeyType.Character) {
+
             char c = Character.toLowerCase(input.getCharacter());
 
             if (c == 'y') {
                 int cost = 65;
+                Shape shape = TowerFactory.getRapidTowerShape();
+
+                if (!context.getArena().isPlaceable(x, y, shape)) {
+                    ShopState shop = new ShopState(x, y);
+                    shop.setErrorMessage("Invalid placement!");
+                    context.setState(shop);
+                    return;
+                }
+
                 if (context.getArena().getGold() >= cost) {
                     SoundManager.getInstance().play("sfx_bought");
                     context.getArena().addTower(TowerFactory.createRapidTower(x, y));
                     context.getArena().removeGold(cost);
                     context.setState(new PlayState());
                 } else {
-                    context.getHUD().showMessage("Not enough gold!");
-                    context.setState(new ShopState(x, y));
+                    ShopState shop = new ShopState(x, y);
+                    shop.setErrorMessage("Not enough gold!");
+                    context.setState(shop);
                 }
             }
 
@@ -50,10 +71,13 @@ public class RapidTowerInfoState implements State {
     public void draw(Game context, TextGraphics g) {
         g.putString(10, 5, "=== RAPID TOWER ===");
         g.putString(10, 7, "Damage: 1");
-        g.putString(10, 8, "Range: 5");
-        g.putString(10, 9, "Very fast firing speed!");
+        g.putString(10, 8, "Range: 13");
+        g.putString(10, 9, "Extremely fast attack speed.");
         g.putString(10, 12, "Cost: 65 gold");
         g.putString(10, 14, "Press Y to buy");
         g.putString(10, 15, "Press N to return");
+
+        Shape preview = TowerFactory.getRapidTowerShape();
+        drawShapePreview(g, preview, 40, 10);
     }
 }

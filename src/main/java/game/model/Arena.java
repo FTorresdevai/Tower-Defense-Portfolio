@@ -13,7 +13,7 @@ public class Arena implements Subject {
     private List<Tower> towers = new ArrayList<>();
     private int cursorX = 10;
     private int cursorY = 10;
-    private int gold = 150;
+    private int gold = 1500;
     private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
@@ -262,16 +262,9 @@ public class Arena implements Subject {
     }
 
     public boolean isPlaceable(int x, int y) {
-        Position pos = new Position(x, y);
-        Shape dummyShape = new Shape();
-        dummyShape.getPixels().add(new Pixel(0,0,' '));
-
-        if (path.isOnPath(pos, dummyShape)) return false;
-
-        for (Tower t : towers) {
-            if ((int)t.getPosition().getX() == x && (int)t.getPosition().getY() == y) return false;
-        }
-        return true;
+        Shape temp = new Shape();
+        temp.add(0, 0, ' ');
+        return isPlaceable(x, y, temp);
     }
 
     public boolean isPlaceable(int x, int y, Shape shape) {
@@ -284,6 +277,7 @@ public class Arena implements Subject {
                 return false;
             }
         }
+
         return true;
     }
 

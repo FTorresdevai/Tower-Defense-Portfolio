@@ -10,9 +10,18 @@ public class ShopState implements State {
 
     private final ShopStateController controller;
     private final ShopStateView view = new ShopStateView();
+    private String errorMessage = null;
 
     public ShopState(int x, int y) {
         this.controller = new ShopStateController(x, y);
+    }
+
+    public void setErrorMessage(String msg) {
+        this.errorMessage = msg;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     @Override
@@ -22,8 +31,9 @@ public class ShopState implements State {
 
     @Override
     public void draw(Game context, TextGraphics g) throws Exception {
-        view.draw(context.getArena(), context.getHUD(), g);
+        view.draw(context.getArena(), context.getHUD(), this, g);
     }
+
 
     @Override
     public void update(Game context) throws Exception {
