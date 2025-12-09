@@ -18,6 +18,8 @@ public class Arena implements Subject {
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
     private EnemySpawner spawner;
+    private boolean waitingForPlayer = true;
+
 
 
     public Arena(int width, int height, Path path) {
@@ -25,7 +27,6 @@ public class Arena implements Subject {
         this.height = height;
         this.path = path;
         this.spawner = new EnemySpawner(this);
-        this.spawner.startWave(this.wave);
     }
 
     public int getWidth() { return width; }
@@ -61,10 +62,8 @@ public class Arena implements Subject {
         }
     }
 
-    public void startNextWave() {
-        wave++;
-        spawner.startWave(wave);
-        notifyObservers();
+    public boolean isWaitingForPlayer() {
+        return waitingForPlayer;
     }
 
     private void explodeAOE(Enemy center) {
@@ -137,6 +136,9 @@ public class Arena implements Subject {
 
 
     public void update() {
+        if (waitingForPlayer) {
+            return;
+        }
         spawner.update();
         List<Enemy> enemiesToRemove = new ArrayList<>();
         for (Enemy e : enemies) {
@@ -161,8 +163,9 @@ public class Arena implements Subject {
             waveDelayTimer++;
 
             if (waveDelayTimer >= 100) {
-                startNextWave();
+                wave++;
                 waitingNextWave = false;
+                waitingForPlayer = true;
             }
 
             return;
@@ -297,5 +300,12 @@ public class Arena implements Subject {
             }
         }
         return false;
+    }
+
+    public void playerStartsWave() {
+        waitingForPlayer = false;
+        waitingNextWave = false;
+        waveDelayTimer = 0;
+        spawner.startWave(wave);
     }
 }

@@ -13,6 +13,14 @@ public class PlayStateController {
     public void handleInput(Game context, KeyStroke input) throws Exception {
         if (input == null) return;
 
+        if (input.getKeyType() == KeyType.Character && input.getCharacter() == ' ') {
+            if (context.getArena().isWaitingForPlayer()) {
+                context.getArena().playerStartsWave();
+                SoundManager.getInstance().play("sfx_menuchange");
+            }
+            return;
+        }
+
         if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'p') {
             context.setState(new PauseState());
             SoundManager.getInstance().play("sfx_menuchange");

@@ -14,6 +14,7 @@ public class HUDview {
         drawStats(hud, g);
         drawControls(arena, g);
         drawMessage(hud, arena, g);
+        drawWavePrompt(arena, g);
     }
 
     public void drawStats(GameHUD hud, TextGraphics g) {
@@ -59,6 +60,18 @@ public class HUDview {
             int x = (width - hud.getCurrentMessage().length()) / 2;
             int y = 5;
             g.putString(x, y, hud.getCurrentMessage());
+            g.setForegroundColor(TextColor.ANSI.WHITE);
+        }
+    }
+
+    private void drawWavePrompt(Arena arena, TextGraphics g) {
+        if (arena.isWaitingForPlayer()) {
+            String msg = "PRESS SPACE TO START WAVE";
+            int x = (arena.getWidth() - msg.length()) / 2;
+            int y = 3;
+
+            g.setForegroundColor(TextColor.ANSI.CYAN);
+            g.putString(x, y, msg);
             g.setForegroundColor(TextColor.ANSI.WHITE);
         }
     }
