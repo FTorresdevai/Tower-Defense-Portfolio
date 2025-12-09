@@ -29,6 +29,7 @@ public class Game {
         Terminal terminal = terminalFactory.createTerminal();
         screen = new TerminalScreen(terminal);
         screen.setCursorPosition(null);
+        terminal.setCursorVisible(false);
         screen.startScreen();
         screen.doResizeIfNecessary();
         SoundManager sm = SoundManager.getInstance();
