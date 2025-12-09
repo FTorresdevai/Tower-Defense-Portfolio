@@ -23,7 +23,7 @@ public class Game {
     private State currentState;
 
     public Game() throws IOException {
-        TerminalSize terminalSize = new TerminalSize(80, 24);
+        TerminalSize terminalSize = new TerminalSize(140, 44);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         Terminal terminal = terminalFactory.createTerminal();
         screen = new TerminalScreen(terminal);
@@ -36,7 +36,7 @@ public class Game {
         sm.loadAssetAsync("sfx_menuchange", "/sounds/sfx_menuchange.wav");
         sm.loadAssetAsync("sfx_bought", "/sounds/sfx_bought.wav");
 
-        arena = new Arena(80, 24);
+        arena = new Arena(140, 44);
         hud = new GameHUD(arena);
         currentState = new PlayState();
     }
@@ -53,7 +53,7 @@ public class Game {
     public void setState(State next) { this.currentState = next; }
 
     public void resetArena() {
-        arena = new Arena(80,24);
+        arena = new Arena(140,44);
         hud = new GameHUD(arena);
     }
 
