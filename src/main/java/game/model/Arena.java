@@ -13,7 +13,7 @@ public class Arena implements Subject {
     private List<Tower> towers = new ArrayList<>();
     private int cursorX = 10;
     private int cursorY = 10;
-    private int gold = 130;
+    private int gold = 150;
     private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();

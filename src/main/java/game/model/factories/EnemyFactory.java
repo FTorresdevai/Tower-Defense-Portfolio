@@ -9,9 +9,9 @@ public class EnemyFactory {
     public static Enemy createBasicEnemy(int startX, int startY, Path path) {
         Shape s = new Shape();
         s.add(0, 0, 'o');
-        Enemy e = new Enemy(startX, startY, s, path, 5, false);
+        Enemy e = new Enemy(startX, startY, s, path, 4, false);
         e.setSpeed(0.12f);
-        e.setBounty(1);
+        e.setBounty(2);
         return e;
     }
     public static Enemy createFastEnemy(int x, int y, Path path) {
