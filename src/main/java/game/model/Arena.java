@@ -1,8 +1,6 @@
 package game.model;
 
-import game.model.factories.EnemyFactory;
 import game.model.factories.ProjectileFactory;
-import game.model.factories.TowerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,16 +13,19 @@ public class Arena implements Subject {
     private List<Tower> towers = new ArrayList<>();
     private int cursorX = 10;
     private int cursorY = 10;
-    private int gold = 1000;
+    private int gold = 130;
     private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
+    private EnemySpawner spawner;
 
-    public Arena(int width, int height) {
+
+    public Arena(int width, int height, Path path) {
         this.width = width;
         this.height = height;
-        createPath();
-        createExampleEnemies();
+        this.path = path;
+        this.spawner = new EnemySpawner(this);
+        this.spawner.startWave(this.wave);
     }
 
     public int getWidth() { return width; }
@@ -39,6 +40,9 @@ public class Arena implements Subject {
     public int getGold() { return gold; }
     public int getLives() { return lives; }
     public int getWave() { return wave; }
+    private boolean waitingNextWave = false;
+    private int waveDelayTimer = 0;
+
 
     @Override
     public void attach(Observer o) {
@@ -59,24 +63,9 @@ public class Arena implements Subject {
 
     public void startNextWave() {
         wave++;
+        spawner.startWave(wave);
         notifyObservers();
     }
-
-    private void createPath() {
-        path = new Path();
-        path.addNode(0, 5);
-        path.addNode(20, 5);
-        path.addNode(20, 15);
-        path.addNode(60, 15);
-        path.addNode(60, 10);
-        path.addNode(75, 10);
-        path.addNode(79, 10);
-    }
-
-    private void createExampleEnemies() {
-        enemies.add(EnemyFactory.createBasicEnemy(0, 5, path));
-    }
-
 
     private void explodeAOE(Enemy center) {
         int radius = 3;
@@ -148,6 +137,7 @@ public class Arena implements Subject {
 
 
     public void update() {
+        spawner.update();
         List<Enemy> enemiesToRemove = new ArrayList<>();
         for (Enemy e : enemies) {
             e.update();
@@ -158,6 +148,24 @@ public class Arena implements Subject {
         if (!enemiesToRemove.isEmpty()) {
             lives -= enemiesToRemove.size();
             notifyObservers();
+        }
+
+        boolean waveFinished = spawner.hasFinishedSpawning() && enemies.isEmpty();
+
+        if (waveFinished && !waitingNextWave) {
+            waitingNextWave = true;
+            waveDelayTimer = 0;
+        }
+
+        if (waitingNextWave) {
+            waveDelayTimer++;
+
+            if (waveDelayTimer >= 100) {
+                startNextWave();
+                waitingNextWave = false;
+            }
+
+            return;
         }
 
         for (Tower t : towers) {
@@ -204,7 +212,7 @@ public class Arena implements Subject {
 
                     if (target.isDead()) {
                         deadEnemiesToRemove.add(target);
-                        gold += 5;
+                        gold += target.getBounty();
                         notifyObservers();
                     }
                 }

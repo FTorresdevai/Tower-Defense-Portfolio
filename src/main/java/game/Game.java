@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import game.model.Arena;
 import game.model.GameHUD;
+import game.model.MainPathProvider;
 import game.states.PlayState;
 import game.states.State;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class Game {
         sm.loadAssetAsync("sfx_menuchange", "/sounds/sfx_menuchange.wav");
         sm.loadAssetAsync("sfx_bought", "/sounds/sfx_bought.wav");
 
-        arena = new Arena(140, 44);
+        arena = new Arena(140, 44, MainPathProvider.createMainPath());
         hud = new GameHUD(arena);
         currentState = new PlayState();
     }
@@ -53,7 +54,7 @@ public class Game {
     public void setState(State next) { this.currentState = next; }
 
     public void resetArena() {
-        arena = new Arena(140,44);
+        arena = new Arena(140, 44, MainPathProvider.createMainPath());
         hud = new GameHUD(arena);
     }
 

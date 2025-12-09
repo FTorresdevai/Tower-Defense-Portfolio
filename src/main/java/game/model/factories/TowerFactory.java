@@ -40,8 +40,8 @@ public class TowerFactory {
 
         Tower t = new Tower(x, y, gun);
         t.setDamage(1);
-        t.setRange(5);
-        t.setMaxCooldown(10);
+        t.setRange(13);
+        t.setMaxCooldown(14);
         return t;
     }
     public static Tower createSniperTower(int x, int y) {
@@ -54,10 +54,10 @@ public class TowerFactory {
         s.add(1, 0, '\\');
 
         Tower t = new Tower(x, y, s);
-        t.setDamage(5);
-        t.setRange(12);
+        t.setDamage(6);
+        t.setRange(50);
+        t.setMaxCooldown(90);
         t.setCanSeeCamo(true);
-        t.setMaxCooldown(60);
         return t;
     }
     public static Tower createBombTower(int x, int y) {
@@ -75,8 +75,8 @@ public class TowerFactory {
 
         Tower t = new Tower(x, y, s);
         t.setDamage(3);
-        t.setRange(5);
-        t.setMaxCooldown(45);
+        t.setRange(12);
+        t.setMaxCooldown(75);
         t.setTowerType("bomb");
         return t;
     }
@@ -91,8 +91,8 @@ public class TowerFactory {
 
         Tower t = new Tower(x, y, s);
         t.setDamage(0);
-        t.setRange(6);
-        t.setMaxCooldown(60);
+        t.setRange(10);
+        t.setMaxCooldown(80);
         t.setTowerType("frost");
         return t;
     }
@@ -111,12 +111,10 @@ public class TowerFactory {
 
         Tower t = new Tower(x, y, s);
         t.setDamage(2);
-        t.setRange(6);
+        t.setRange(16);
+        t.setMaxCooldown(60);
         t.setCanSeeCamo(true);
-        t.setMaxCooldown(50);
         t.setTowerType("tesla");
         return t;
     }
-
-
 }

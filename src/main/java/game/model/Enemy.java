@@ -8,7 +8,7 @@ public class Enemy implements GameObject {
     private float speedModifier = 1.0f;
     private int slowDuration = 0;
     private PathMovementStrategy movementStrategy;
-
+    private int bounty = 1;
     private int hp;
     private int maxHp;
     private boolean camo;
@@ -52,6 +52,9 @@ public class Enemy implements GameObject {
         speedModifier = modifier;
         slowDuration = duration;
     }
+
+    public void setBounty(int b) { this.bounty = b; }
+    public int getBounty() { return bounty; }
 
     public boolean hasReachedEnd() {
         return movementStrategy.isFinished();
