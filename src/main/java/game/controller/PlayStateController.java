@@ -84,7 +84,8 @@ public class PlayStateController {
         }
 
         if (context.getArena().isGameOver()) {
-            context.setState(new GameOverState());
+            int currentWave = context.getArena().getWave();
+            context.setState(new GameOverState(currentWave));
         }
     }
 }
