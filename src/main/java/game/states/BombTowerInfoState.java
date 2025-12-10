@@ -80,11 +80,12 @@ public class BombTowerInfoState implements State {
         g.putString(35, 8, "| |_) | |_| | |  | | | |_) | ");
         g.putString(35, 9, "|____/ \\___/|_|  |_| |____/");
 
+        // ... TOWER ...
         g.putString(65, 5, " _____   ___  __        __ _____  ____  ");
         g.putString(65, 6, "|_   _| / _ \\ \\ \\      / /| ____||  _ \\ ");
         g.putString(65, 7, "  | |  | | | | \\ \\ /\\ / / |  _|  | |_) |");
         g.putString(65, 8, "  | |  | |_| |  \\ V  V /  | |___ |  _ < ");
-        g.putString(65, 9, "  |_|   \\___/     \\/\\/    |_____||_| \\");
+        g.putString(65, 9, "  |_|   \\___/     \\/\\/    |_____||_| \\_\\");
 
         g.setForegroundColor(TextColor.ANSI.YELLOW);
         g.putString(40, 13, "Damage: 3");
