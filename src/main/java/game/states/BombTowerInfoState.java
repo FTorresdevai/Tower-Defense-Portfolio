@@ -95,7 +95,7 @@ public class BombTowerInfoState implements State {
         g.putString(40, 17, "to handle clustered waves of enemies.");
         g.putString(40, 18, "Its powerful blasts strike multiple");
         g.putString(40, 19, "targets at once — perfect crowd control.");
-        g.putString(40, 24, "Special: Explodes on hit (radius 2)");
+        g.putString(40, 24, "Special: Explodes on hit (radius 3)");
         g.putString(40, 25, "Cost: 150 gold");
 
         g.putString(118, 16, "Shape:");

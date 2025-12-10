@@ -77,7 +77,7 @@ public class Arena implements Subject {
                 e.takeDamage(3);
                 if (e.isDead()) {
                     enemies.remove(e);
-                    gold += 5;
+                    gold += e.getBounty();
                     notifyObservers();
                 }
 
@@ -90,7 +90,7 @@ public class Arena implements Subject {
 
         if (firstTarget.isDead()) {
             enemies.remove(firstTarget);
-            gold += 5;
+            gold += firstTarget.getBounty();
         }
 
         int chains = 3;
@@ -106,7 +106,7 @@ public class Arena implements Subject {
 
             if (next.isDead()) {
                 enemies.remove(next);
-                gold += 5;
+                gold += next.getBounty();
             }
 
             source = next;
