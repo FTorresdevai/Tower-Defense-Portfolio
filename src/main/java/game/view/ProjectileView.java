@@ -7,7 +7,7 @@ import game.model.Projectile;
 
 public class ProjectileView {
     public void draw(Projectile projectile, TextGraphics g) {
-        g.setForegroundColor(TextColor.ANSI.YELLOW);
+        g.setForegroundColor(projectile.getProjectileColor());
         for (Pixel px : projectile.getShape().getPixels()) {
             int x = (int) projectile.getPosition().getX() + px.getDx();
             int y = (int) projectile.getPosition().getY() + px.getDy();

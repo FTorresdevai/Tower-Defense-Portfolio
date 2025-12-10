@@ -182,7 +182,8 @@ public class Arena implements Subject {
                     Projectile p = ProjectileFactory.createBasicProjectile(
                             (int) t.getPosition().getX(),
                             (int) t.getPosition().getY(),
-                            e
+                            e,
+                            t.getTowerType()
                     );
                     p.setDamage(t.getDamage());
                     p.setTowerType(t.getTowerType());

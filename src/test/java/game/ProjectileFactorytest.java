@@ -22,7 +22,7 @@ class ProjectileFactoryTest {
     @Test
     void testcreateBasicProjectile(){
         Enemy mockTarget = Mockito.mock(Enemy.class);
-        Projectile projectile = ProjectileFactory.createBasicProjectile(startX,startY,mockTarget);
+        Projectile projectile = ProjectileFactory.createBasicProjectile(startX,startY,mockTarget,"basic");
 
         assertNotNull(projectile,"Projectile should not be null");
         assertEquals(startX,projectile.getPosition().getX(),"Projectile x should be the same as the startX input");

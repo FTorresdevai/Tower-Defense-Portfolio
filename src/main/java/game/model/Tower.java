@@ -1,5 +1,7 @@
 package game.model;
 
+import com.googlecode.lanterna.TextColor;
+
 public class Tower implements GameObject {
     private Position position;
     private Shape shape;
@@ -9,6 +11,7 @@ public class Tower implements GameObject {
     private boolean canSeeCamo = false;
     private int damage = 2;
     private String towerType = "basic";
+    private TextColor towerColor = TextColor.ANSI.WHITE;
 
     public Tower(int x, int y, Shape shape) {
         this.position = new Position(x, y);
@@ -34,6 +37,13 @@ public class Tower implements GameObject {
     }
     public void setCooldown(float cooldown) {
         this.cooldown = cooldown;
+    }
+    public TextColor getTowerColor() {
+        return towerColor;
+    }
+
+    public void setTowerColor(TextColor color) {
+        this.towerColor = color;
     }
     public boolean canShoot() { return cooldown <= 0; }
     public void tickCooldown() { if (cooldown > 0) cooldown--; }
