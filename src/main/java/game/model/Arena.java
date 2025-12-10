@@ -156,6 +156,7 @@ public class Arena implements Subject {
 
         if (waveFinished && !waitingNextWave) {
             waitingNextWave = true;
+            projectiles.clear();
             waveDelayTimer = 0;
         }
 

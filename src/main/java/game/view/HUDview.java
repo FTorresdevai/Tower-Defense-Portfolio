@@ -39,17 +39,21 @@ public class HUDview {
         msgs_length.add(msg1.length());
         msgs.add(msg1);
 
-        String msg2 = "Q->Quit";
+        String msg2 = "I->Enemy Info";
         msgs_length.add(msg2.length());
         msgs.add(msg2);
 
-        String msg3 = "B->Buy Tower(store)";
+        String msg3 = "Q->Quit";
         msgs_length.add(msg3.length());
         msgs.add(msg3);
 
-        String msg4 = "U->Undo Tower";
+        String msg4 = "B->Buy Tower(store)";
         msgs_length.add(msg4.length());
         msgs.add(msg4);
+
+        String msg5 = "U->Undo Tower";
+        msgs_length.add(msg5.length());
+        msgs.add(msg5);
 
         int maxLen = Collections.max(msgs_length);
         int x = arena.getWidth() - maxLen - 2;

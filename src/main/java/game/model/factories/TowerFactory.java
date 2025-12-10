@@ -23,7 +23,7 @@ public class TowerFactory {
         pyramid.add(2, 0, '^');
 
         Tower t = new Tower(x, y, pyramid);
-        t.setTowerColor(TextColor.Factory.fromString("#EEEEEE"));
+        t.setTowerColor(TextColor.Factory.fromString("WHITE"));
         t.setTowerType("basic");
 
         return t;
@@ -65,7 +65,7 @@ public class TowerFactory {
         t.setRange(50);
         t.setMaxCooldown(90);
         t.setCanSeeCamo(true);
-        t.setTowerColor(TextColor.Factory.fromString("#55CCFF"));
+        t.setTowerColor(TextColor.Factory.fromString("MAGENTA"));
         t.setTowerType("sniper");
         return t;
     }
