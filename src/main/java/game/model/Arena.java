@@ -14,7 +14,7 @@ public class Arena implements Subject {
     private int cursorX = 10;
     private int cursorY = 10;
     private int gold = 1500;
-    private int lives = 1;
+    private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
     private EnemySpawner spawner;

@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import game.model.Arena;
 import game.model.GameHUD;
 import game.model.MainPathProvider;
+import game.states.InstructionsState;
 import game.states.PlayState;
 import game.states.State;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class Game {
 
         arena = new Arena(140, 44, MainPathProvider.createMainPath());
         hud = new GameHUD(arena);
-        currentState = new PlayState();
+        currentState = new InstructionsState();
     }
 
     private void draw() throws Exception {
