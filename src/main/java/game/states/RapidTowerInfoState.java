@@ -1,5 +1,8 @@
 package game.states;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -69,15 +72,40 @@ public class RapidTowerInfoState implements State {
 
     @Override
     public void draw(Game context, TextGraphics g) {
-        g.putString(10, 5, "=== RAPID TOWER ===");
-        g.putString(10, 7, "Damage: 1");
-        g.putString(10, 8, "Range: 13");
-        g.putString(10, 9, "Extremely fast attack speed.");
-        g.putString(10, 12, "Cost: 65 gold");
-        g.putString(10, 14, "Press Y to buy");
-        g.putString(10, 15, "Press N to return");
+        g.setBackgroundColor(TextColor.Factory.fromString("#111133"));
+        g.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(140, 44), ' ');
 
+        g.setForegroundColor(TextColor.ANSI.RED);
+        g.putString(35, 5, " ____      _    ____  ___ ____  ");
+        g.putString(35, 6, "|  _ \\    / \\  |  _ \\|_ _|  _ \\ ");
+        g.putString(35, 7, "| |_) |  / _ \\ | |_) || || | | |");
+        g.putString(35, 8, "|  _ <  / ___ \\|  __/ | || |_| |");
+        g.putString(35, 9, "|_| \\_\\/_/   \\_\\_|   |___|____/ ");
+
+        g.putString(70, 5, " _____   ___  __        __ _____  ____  ");
+        g.putString(70, 6, "|_   _| / _ \\ \\ \\      / /| ____||  _ \\ ");
+        g.putString(70, 7, "  | |  | | | | \\ \\ /\\ / / |  _|  | |_) |");
+        g.putString(70, 8, "  | |  | |_| |  \\ V  V /  | |___ |  _ < ");
+        g.putString(70, 9, "  |_|   \\___/     \\/\\/    |_____||_| \\_\\");
+
+        g.setForegroundColor(TextColor.ANSI.YELLOW);
+        g.putString(40, 13, "Damage: 1");
+        g.putString(40, 14, "Range: 13");
+        g.putString(40, 15, "Description:");
+        g.putString(40, 16, "High-speed projectile launcher.");
+        g.putString(40, 17, "Compensates low damage with extreme");
+        g.putString(40, 18, "fire rate. Great for single targets.");
+
+        g.putString(40, 25, "Cost: 65 gold");
+
+        g.putString(118, 16, "Shape:");
         Shape preview = TowerFactory.getRapidTowerShape();
-        drawShapePreview(g, preview, 40, 10);
+        drawShapePreview(g, preview, 120, 20);
+
+        g.setForegroundColor(TextColor.ANSI.GREEN);
+        g.putString(40, 28, "Press Y to buy");
+
+        g.setForegroundColor(TextColor.ANSI.CYAN);
+        g.putString(40, 29, "Press N to return");
     }
 }
