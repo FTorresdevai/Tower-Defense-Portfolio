@@ -12,6 +12,7 @@ public class Tower implements GameObject {
     private int damage = 2;
     private String towerType = "basic";
     private TextColor towerColor = TextColor.ANSI.WHITE;
+    private int price;
 
     public Tower(int x, int y, Shape shape) {
         this.position = new Position(x, y);
@@ -41,7 +42,9 @@ public class Tower implements GameObject {
     public TextColor getTowerColor() {
         return towerColor;
     }
+    public int getPrice() {return price;}
 
+    public void setPrice(int price) {this.price = price;}
     public void setTowerColor(TextColor color) {
         this.towerColor = color;
     }
@@ -66,6 +69,19 @@ public class Tower implements GameObject {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getRefund() {
+        return (int) (price * 0.40f);
+    }
+
+    public boolean contains(int x, int y) {
+        for (Pixel p : shape.getPixels()) {
+            int px = (int) position.getX() + p.getDx();
+            int py = (int) position.getY() + p.getDy();
+            if (px == x && py == y) return true;
+        }
+        return false;
     }
 
 }

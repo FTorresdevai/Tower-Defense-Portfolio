@@ -25,6 +25,7 @@ public class TowerFactory {
         Tower t = new Tower(x, y, pyramid);
         t.setTowerColor(TextColor.Factory.fromString("WHITE"));
         t.setTowerType("basic");
+        t.setPrice(50);
 
         return t;
 
@@ -49,6 +50,8 @@ public class TowerFactory {
         t.setMaxCooldown(14);
         t.setTowerColor(TextColor.Factory.fromString("#66FF66"));
         t.setTowerType("rapid");
+        t.setPrice(65);
+
         return t;
     }
     public static Tower createSniperTower(int x, int y) {
@@ -67,6 +70,8 @@ public class TowerFactory {
         t.setCanSeeCamo(true);
         t.setTowerColor(TextColor.Factory.fromString("MAGENTA"));
         t.setTowerType("sniper");
+        t.setPrice(120);
+
         return t;
     }
     public static Tower createBombTower(int x, int y) {
@@ -87,6 +92,8 @@ public class TowerFactory {
         t.setMaxCooldown(75);
         t.setTowerType("bomb");
         t.setTowerColor(TextColor.Factory.fromString("#FF5533"));
+        t.setPrice(150);
+
         return t;
     }
     public static Tower createFrostTower(int x, int y) {
@@ -104,6 +111,8 @@ public class TowerFactory {
         t.setMaxCooldown(80);
         t.setTowerType("frost");
         t.setTowerColor(TextColor.Factory.fromString("#66CCFF"));
+        t.setPrice(80);
+
         return t;
     }
     public static Tower createTeslaTower(int x, int y) {
@@ -126,6 +135,8 @@ public class TowerFactory {
         t.setCanSeeCamo(true);
         t.setTowerType("tesla");
         t.setTowerColor(TextColor.Factory.fromString("#AA66FF"));
+        t.setPrice(180);
+
         return t;
     }
 

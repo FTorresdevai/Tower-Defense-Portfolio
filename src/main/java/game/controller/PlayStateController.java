@@ -28,6 +28,10 @@ public class PlayStateController {
             return;
         }
 
+        if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'u') {
+            context.getArena().sellTowerAtCursor();
+        }
+
         if (input.getKeyType() == KeyType.Character &&
                 Character.toLowerCase(input.getCharacter()) == 'i') {
 

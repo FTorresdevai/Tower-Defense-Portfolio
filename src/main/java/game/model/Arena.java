@@ -304,4 +304,22 @@ public class Arena implements Subject {
         waveDelayTimer = 0;
         spawner.startWave(wave);
     }
+
+    private Tower getTowerAtCursor() {
+        for (Tower t : towers) {
+            if (t.contains(cursorX, cursorY)) return t;
+        }
+        return null;
+    }
+
+    public boolean sellTowerAtCursor() {
+        Tower tower = getTowerAtCursor();
+        if (tower == null) return false;
+
+        gold += tower.getRefund();
+        towers.remove(tower);
+        notifyObservers();
+        return true;
+    }
+
 }
