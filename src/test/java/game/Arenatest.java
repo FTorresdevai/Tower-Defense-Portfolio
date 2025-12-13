@@ -1,9 +1,6 @@
 package game;
 
-import game.model.Arena;
-import game.model.Enemy;
-import game.model.Projectile;
-import game.model.Tower;
+import game.model.*;
 import game.model.factories.EnemyFactory;
 import game.model.factories.ProjectileFactory;
 import game.model.factories.TowerFactory;
@@ -20,8 +17,19 @@ class ArenaTest {
 
     @BeforeEach
     void setup(){
+        Path path = new Path();
+        path.addNode(0, 20);
+        path.addNode(20, 20);
+        path.addNode(20, 30);
+        path.addNode(50, 30);
+        path.addNode(50, 18);
+        path.addNode(80, 18);
+        path.addNode(80, 26);
+        path.addNode(110, 26);
+        path.addNode(110, 12);
+        path.addNode(139, 12);
         enemyMock = Mockito.mock(Enemy.class);
-        arena = new Arena(80, 24);
+        arena = new Arena(140, 44, path);
     }
 
 

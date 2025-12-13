@@ -1,9 +1,12 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.15.0'
 }
-
-group = 'com.up202403362.hero'
+pitest {
+    junit5PluginVersion = '1.2.1'
+}
+group = 'game'
 version = '1.0-SNAPSHOT'
 
 repositories {

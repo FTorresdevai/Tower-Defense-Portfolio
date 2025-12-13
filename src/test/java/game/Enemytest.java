@@ -18,7 +18,7 @@ class EnemyTest {
         path = new Path();
         path.addNode(10, 10);
         shape = new Shape();
-        enemy = new Enemy(0, 10, shape, path);
+        enemy = new Enemy(0, 10, shape, path, 1, false);
         enemy.setSpeed(1.0f);
     }
 
