@@ -80,11 +80,12 @@ public class BombTowerInfoState implements State {
         g.putString(35, 8, "| |_) | |_| | |  | | | |_) | ");
         g.putString(35, 9, "|____/ \\___/|_|  |_| |____/");
 
+        // ... TOWER ...
         g.putString(65, 5, " _____   ___  __        __ _____  ____  ");
         g.putString(65, 6, "|_   _| / _ \\ \\ \\      / /| ____||  _ \\ ");
         g.putString(65, 7, "  | |  | | | | \\ \\ /\\ / / |  _|  | |_) |");
         g.putString(65, 8, "  | |  | |_| |  \\ V  V /  | |___ |  _ < ");
-        g.putString(65, 9, "  |_|   \\___/     \\/\\/    |_____||_| \\");
+        g.putString(65, 9, "  |_|   \\___/     \\/\\/    |_____||_| \\_\\");
 
         g.setForegroundColor(TextColor.ANSI.YELLOW);
         g.putString(40, 13, "Damage: 3");
@@ -94,7 +95,7 @@ public class BombTowerInfoState implements State {
         g.putString(40, 17, "to handle clustered waves of enemies.");
         g.putString(40, 18, "Its powerful blasts strike multiple");
         g.putString(40, 19, "targets at once — perfect crowd control.");
-        g.putString(40, 24, "Special: Explodes on hit (radius 2)");
+        g.putString(40, 24, "Special: Explodes on hit (radius 3)");
         g.putString(40, 25, "Cost: 150 gold");
 
         g.putString(118, 16, "Shape:");

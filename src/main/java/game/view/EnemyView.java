@@ -7,7 +7,7 @@ import game.model.Pixel;
 
 public class EnemyView {
     public void draw(Enemy enemy, TextGraphics g) {
-        g.setForegroundColor(TextColor.ANSI.RED);
+        g.setForegroundColor(enemy.getColor());
         for (Pixel px : enemy.getShape().getPixels()) {
             int x = (int) enemy.getPosition().getX() + px.getDx();
             int y = (int) enemy.getPosition().getY() + px.getDy();

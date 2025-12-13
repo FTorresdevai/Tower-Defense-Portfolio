@@ -7,7 +7,7 @@ import game.model.Path;
 
 public class PathView {
     public void draw(Path path, TextGraphics g) {
-        g.setForegroundColor(TextColor.Factory.fromString("#FFD700"));
+        g.setForegroundColor(TextColor.Factory.fromString("#D4A72C"));
 
         for (int i = 0; i < path.getNodes().size(); i++) {
 

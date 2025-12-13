@@ -1,5 +1,8 @@
 package game.states;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -74,16 +77,43 @@ public class ClassicTowerInfoState implements State {
 
     @Override
     public void draw(Game context, TextGraphics g) {
-        g.putString(10, 5, "=== CLASSIC TOWER ===");
-        g.putString(10, 7, "Damage: 1");
-        g.putString(10, 8, "Range: 6");
-        g.putString(10, 9, "A balanced, reliable tower.");
-        g.putString(10, 12, "Cost: 50 gold");
-        g.putString(10, 14, "Press Y to buy");
-        g.putString(10, 15, "Press N to return");
+        g.setBackgroundColor(TextColor.Factory.fromString("#111133"));
+        g.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(140, 44), ' ');
 
-        Shape preview = TowerFactory.getBasicTowerShape();
-        drawShapePreview(g, preview, 40, 10);
+        g.setForegroundColor(TextColor.ANSI.RED);
+        g.setForegroundColor(TextColor.ANSI.RED);
+        g.putString(35, 5, " ____    _    ____  ___ ____  ");
+        g.putString(35, 6, "| __ )  / \\  / ___||_ _/ ___| ");
+        g.putString(35, 7, "|  _ \\ / _ \\ \\___ \\ | | |     ");
+        g.putString(35, 8, "| |_) / ___ \\ ___) || | |___  ");
+        g.putString(35, 9, "|____/_/   \\_\\____/|___\\____| ");
+
+        g.putString(70, 5, " _____   ___  __        __ _____  ____  ");
+        g.putString(70, 6, "|_   _| / _ \\ \\ \\      / /| ____||  _ \\ ");
+        g.putString(70, 7, "  | |  | | | | \\ \\ /\\ / / |  _|  | |_) |");
+        g.putString(70, 8, "  | |  | |_| |  \\ V  V /  | |___ |  _ < ");
+        g.putString(70, 9, "  |_|   \\___/     \\/\\/    |_____||_| \\_\\");
+
+        g.setForegroundColor(TextColor.ANSI.YELLOW);
+        g.putString(40, 13, "Damage: 1");
+        g.putString(40, 14, "Range: 6");
+        g.putString(40, 15, "Description:");
+        g.putString(40, 16, "A balanced and reliable tower.");
+        g.putString(40, 17, "Cheap and effective for early waves.");
+        g.putString(40, 18, "Shoots standard projectiles.");
+
+        g.putString(40, 24, "Special: None");
+        g.putString(40, 25, "Cost: 50 gold");
+
+        g.putString(118, 16, "Shape:");
+        Shape basicShape = TowerFactory.getBasicTowerShape();
+        drawShapePreview(g, basicShape, 120, 20);
+
+        g.setForegroundColor(TextColor.ANSI.GREEN);
+        g.putString(40, 28, "Press Y to buy");
+
+        g.setForegroundColor(TextColor.ANSI.CYAN);
+        g.putString(40, 29, "Press N to return");
     }
 
 

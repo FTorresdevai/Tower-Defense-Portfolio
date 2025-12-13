@@ -1,5 +1,6 @@
 package game.model;
 
+import com.googlecode.lanterna.TextColor;
 import game.model.strategies.TargetMovementStrategy;
 
 public class Projectile implements GameObject {
@@ -12,6 +13,7 @@ public class Projectile implements GameObject {
     private int damage = 1;
     private String towerType = "basic";
     private float speedModifier = 1.0f;
+    private TextColor projectileColor = TextColor.ANSI.WHITE;
 
     public Projectile(int x, int y, Shape shape, Enemy target) {
         this.position = new Position(x, y);
@@ -27,6 +29,12 @@ public class Projectile implements GameObject {
     public int getDamage() { return damage; }
     public void setTowerType(String type) { this.towerType = type; }
     public String getTowerType() { return towerType; }
+    public void setProjectileColor(TextColor color) {
+        this.projectileColor = color;
+    }
+    public TextColor getProjectileColor() {
+        return projectileColor;
+    }
 
     public boolean isAlive() { return alive; }
     public boolean hasHitTarget() { return hitTarget; }

@@ -71,7 +71,7 @@ class ArenaTest {
         Enemy enemy = EnemyFactory.createBasicEnemy(10, 10, arena.getPath());
         arena.getEnemies().add(enemy);
 
-        Projectile p = ProjectileFactory.createBasicProjectile(10, 10, enemy);
+        Projectile p = ProjectileFactory.createBasicProjectile(10, 10, enemy, "basic");
         arena.getProjectiles().add(p);
 
         int oldGold = arena.getGold();

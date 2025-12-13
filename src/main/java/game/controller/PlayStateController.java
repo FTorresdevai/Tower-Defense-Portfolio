@@ -4,6 +4,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import game.Game;
 import game.audio.SoundManager;
+import game.states.EnemyInfoState;
 import game.states.GameOverState;
 import game.states.PauseState;
 import game.states.ShopState;
@@ -24,6 +25,18 @@ public class PlayStateController {
         if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'p') {
             context.setState(new PauseState());
             SoundManager.getInstance().play("sfx_menuchange");
+            return;
+        }
+
+        if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'u') {
+            context.getArena().sellTowerAtCursor();
+        }
+
+        if (input.getKeyType() == KeyType.Character &&
+                Character.toLowerCase(input.getCharacter()) == 'i') {
+
+            SoundManager.getInstance().play("sfx_menuchange");
+            context.setState(new EnemyInfoState());
             return;
         }
 
@@ -84,7 +97,8 @@ public class PlayStateController {
         }
 
         if (context.getArena().isGameOver()) {
-            context.setState(new GameOverState());
+            int currentWave = context.getArena().getWave();
+            context.setState(new GameOverState(currentWave));
         }
     }
 }

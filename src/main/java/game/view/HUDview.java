@@ -18,12 +18,20 @@ public class HUDview {
     }
 
     public void drawStats(GameHUD hud, TextGraphics g) {
+        g.setForegroundColor(TextColor.Factory.fromString("#FFD700"));
         g.putString(2, 0, "Gold: " + hud.getGold());
+
+        g.setForegroundColor(TextColor.Factory.fromString("#FF6666"));
         g.putString(15, 0, "Lives: " + hud.getLives());
+
+        g.setForegroundColor(TextColor.Factory.fromString("#AAAAFF"));
         g.putString(30, 0, "Wave: " + hud.getWave());
+
+        g.setForegroundColor(TextColor.ANSI.WHITE);
     }
 
     public void drawControls(Arena arena, TextGraphics g) {
+        g.setForegroundColor(TextColor.Factory.fromString("#AAB2D5"));
         List<Integer> msgs_length = new ArrayList<Integer>();
         List<String> msgs = new ArrayList<>();
 
@@ -31,17 +39,21 @@ public class HUDview {
         msgs_length.add(msg1.length());
         msgs.add(msg1);
 
-        String msg2 = "Q->Quit";
+        String msg2 = "I->Enemy Info";
         msgs_length.add(msg2.length());
         msgs.add(msg2);
 
-        String msg3 = "B->Buy Tower(store)";
+        String msg3 = "Q->Quit";
         msgs_length.add(msg3.length());
         msgs.add(msg3);
 
-        String msg4 = "U->Undo Tower";
+        String msg4 = "B->Buy Tower(store)";
         msgs_length.add(msg4.length());
         msgs.add(msg4);
+
+        String msg5 = "U->Undo Tower";
+        msgs_length.add(msg5.length());
+        msgs.add(msg5);
 
         int maxLen = Collections.max(msgs_length);
         int x = arena.getWidth() - maxLen - 2;
@@ -51,11 +63,12 @@ public class HUDview {
             g.putString(x,y,m);
             y += 1;
         }
+        g.setForegroundColor(TextColor.ANSI.WHITE);
     }
 
     public void drawMessage(GameHUD hud, Arena arena, TextGraphics g){
         if (hud.getMessageTimer() > 0) {
-            g.setForegroundColor(TextColor.ANSI.RED);
+            g.setForegroundColor(TextColor.Factory.fromString("#FF4444"));
             int width = arena.getWidth();
             int x = (width - hud.getCurrentMessage().length()) / 2;
             int y = 5;
@@ -70,7 +83,7 @@ public class HUDview {
             int x = (arena.getWidth() - msg.length()) / 2;
             int y = 3;
 
-            g.setForegroundColor(TextColor.ANSI.CYAN);
+            g.setForegroundColor(TextColor.Factory.fromString("#00DDFF"));
             g.putString(x, y, msg);
             g.setForegroundColor(TextColor.ANSI.WHITE);
         }

@@ -8,7 +8,8 @@ import game.model.Tower;
 public class TowerView {
 
     public void draw(Tower tower, TextGraphics g){
-        g.setForegroundColor(TextColor.ANSI.WHITE);
+        g.setForegroundColor(tower.getTowerColor());
+
         for (Pixel px : tower.getShape().getPixels()) {
             int x = (int) tower.getPosition().getX() + px.getDx();
             int y = (int) tower.getPosition().getY() + px.getDy();

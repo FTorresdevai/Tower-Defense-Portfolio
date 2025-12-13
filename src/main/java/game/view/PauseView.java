@@ -1,5 +1,6 @@
 package game.view;
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import game.model.Arena;
 import game.model.GameHUD;
@@ -8,6 +9,7 @@ public class PauseView {
     public void draw(Arena arena, GameHUD hud, TextGraphics g) throws Exception {
         new ArenaView().draw(arena, g);
         new HUDview().draw(hud, arena, g);
+        g.setForegroundColor(TextColor.Factory.fromString("#AAB2D5"));
 
         int width = arena.getWidth();
         int height = arena.getHeight();

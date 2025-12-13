@@ -1,5 +1,6 @@
 package game.model;
 
+import com.googlecode.lanterna.TextColor;
 import game.model.strategies.PathMovementStrategy;
 
 public class Enemy implements GameObject {
@@ -12,17 +13,20 @@ public class Enemy implements GameObject {
     private int hp;
     private int maxHp;
     private boolean camo;
+    private TextColor color;
 
-    public Enemy(int x, int y, Shape shape, Path path, int hp, boolean camo) {
+    public Enemy(int x, int y, Shape shape, Path path, int hp, boolean camo, TextColor color) {
         this.position = new Position(x, y);
         this.shape = shape;
         this.hp = hp;
         this.maxHp = hp;
         this.camo = camo;
+        this.color = color;
         this.movementStrategy = new PathMovementStrategy(path, 0.15f);
     }
 
     public Position getPosition() { return position; }
+    public TextColor getColor() { return color; }
     public Shape getShape() { return shape; }
     public int getHp() { return hp; }
     public int getMaxHp() { return maxHp; }

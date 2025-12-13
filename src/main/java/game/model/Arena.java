@@ -13,7 +13,7 @@ public class Arena implements Subject {
     private List<Tower> towers = new ArrayList<>();
     private int cursorX = 10;
     private int cursorY = 10;
-    private int gold = 1500;
+    private int gold = 150;
     private int lives = 10;
     private int wave = 1;
     private final List<Observer> observers = new ArrayList<>();
@@ -77,7 +77,7 @@ public class Arena implements Subject {
                 e.takeDamage(3);
                 if (e.isDead()) {
                     enemies.remove(e);
-                    gold += 5;
+                    gold += e.getBounty();
                     notifyObservers();
                 }
 
@@ -90,7 +90,7 @@ public class Arena implements Subject {
 
         if (firstTarget.isDead()) {
             enemies.remove(firstTarget);
-            gold += 5;
+            gold += firstTarget.getBounty();
         }
 
         int chains = 3;
@@ -106,7 +106,7 @@ public class Arena implements Subject {
 
             if (next.isDead()) {
                 enemies.remove(next);
-                gold += 5;
+                gold += next.getBounty();
             }
 
             source = next;
@@ -156,6 +156,7 @@ public class Arena implements Subject {
 
         if (waveFinished && !waitingNextWave) {
             waitingNextWave = true;
+            projectiles.clear();
             waveDelayTimer = 0;
         }
 
@@ -182,7 +183,8 @@ public class Arena implements Subject {
                     Projectile p = ProjectileFactory.createBasicProjectile(
                             (int) t.getPosition().getX(),
                             (int) t.getPosition().getY(),
-                            e
+                            e,
+                            t.getTowerType()
                     );
                     p.setDamage(t.getDamage());
                     p.setTowerType(t.getTowerType());
@@ -302,4 +304,22 @@ public class Arena implements Subject {
         waveDelayTimer = 0;
         spawner.startWave(wave);
     }
+
+    private Tower getTowerAtCursor() {
+        for (Tower t : towers) {
+            if (t.contains(cursorX, cursorY)) return t;
+        }
+        return null;
+    }
+
+    public boolean sellTowerAtCursor() {
+        Tower tower = getTowerAtCursor();
+        if (tower == null) return false;
+
+        gold += tower.getRefund();
+        towers.remove(tower);
+        notifyObservers();
+        return true;
+    }
+
 }

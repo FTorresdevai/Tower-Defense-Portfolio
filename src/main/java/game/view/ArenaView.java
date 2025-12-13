@@ -11,7 +11,7 @@ import game.model.Tower;
 
 public class ArenaView {
     public void draw(Arena arena, TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#111133"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(arena.getWidth(), arena.getHeight()), ' ');
 
         PathView pathView = new PathView();
@@ -26,7 +26,7 @@ public class ArenaView {
         ProjectileView projectileView = new ProjectileView();
         for (Projectile p : arena.getProjectiles()) projectileView.draw(p, graphics);
 
-        graphics.setForegroundColor(TextColor.ANSI.WHITE);
+        graphics.setForegroundColor(TextColor.Factory.fromString("#00FFAA"));
         graphics.putString(arena.getCursorX(), arena.getCursorY(), "X");
     }
 }

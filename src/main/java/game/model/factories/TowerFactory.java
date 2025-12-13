@@ -1,5 +1,6 @@
 package game.model.factories;
 
+import com.googlecode.lanterna.TextColor;
 import game.model.Shape;
 import game.model.Tower;
 
@@ -21,7 +22,12 @@ public class TowerFactory {
         pyramid.add(1, 0, '^');
         pyramid.add(2, 0, '^');
 
-        return new Tower(x, y, pyramid);
+        Tower t = new Tower(x, y, pyramid);
+        t.setTowerColor(TextColor.Factory.fromString("WHITE"));
+        t.setTowerType("basic");
+        t.setPrice(50);
+
+        return t;
 
     }
     public static Tower createRapidTower(int x, int y) {
@@ -42,6 +48,10 @@ public class TowerFactory {
         t.setDamage(1);
         t.setRange(13);
         t.setMaxCooldown(14);
+        t.setTowerColor(TextColor.Factory.fromString("#66FF66"));
+        t.setTowerType("rapid");
+        t.setPrice(65);
+
         return t;
     }
     public static Tower createSniperTower(int x, int y) {
@@ -58,6 +68,10 @@ public class TowerFactory {
         t.setRange(50);
         t.setMaxCooldown(90);
         t.setCanSeeCamo(true);
+        t.setTowerColor(TextColor.Factory.fromString("MAGENTA"));
+        t.setTowerType("sniper");
+        t.setPrice(120);
+
         return t;
     }
     public static Tower createBombTower(int x, int y) {
@@ -67,7 +81,7 @@ public class TowerFactory {
         s.add(1, -2, ')');
 
         s.add(-1, -1, '(');
-        s.add(1, -1, ')');
+        s.add(2, -1, ')');
 
         s.add(0, 0, '(');
         s.add(1, 0, ')');
@@ -77,6 +91,9 @@ public class TowerFactory {
         t.setRange(12);
         t.setMaxCooldown(75);
         t.setTowerType("bomb");
+        t.setTowerColor(TextColor.Factory.fromString("#FF5533"));
+        t.setPrice(150);
+
         return t;
     }
     public static Tower createFrostTower(int x, int y) {
@@ -93,6 +110,9 @@ public class TowerFactory {
         t.setRange(10);
         t.setMaxCooldown(80);
         t.setTowerType("frost");
+        t.setTowerColor(TextColor.Factory.fromString("#66CCFF"));
+        t.setPrice(80);
+
         return t;
     }
     public static Tower createTeslaTower(int x, int y) {
@@ -114,6 +134,9 @@ public class TowerFactory {
         t.setMaxCooldown(60);
         t.setCanSeeCamo(true);
         t.setTowerType("tesla");
+        t.setTowerColor(TextColor.Factory.fromString("#AA66FF"));
+        t.setPrice(180);
+
         return t;
     }
 
@@ -169,7 +192,7 @@ public class TowerFactory {
         s.add(1, -2, ')');
 
         s.add(-1, -1, '(');
-        s.add(1, -1, ')');
+        s.add(2, -1, ')');
 
         s.add(0, 0, '(');
         s.add(1, 0, ')');
