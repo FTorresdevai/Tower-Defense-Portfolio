@@ -74,8 +74,8 @@ public class InstructionsState implements State {
         g.putString(leftColX, row++, "* You have 10 Lives.");
         g.putString(leftColX, row++, "  Don't waste them.");
         row++;
-        g.putString(leftColX, row++, "* Earn Gold by destroying");
-        g.putString(leftColX, row++, "  enemies to upgrade.");
+        g.putString(leftColX, row++, "* Earn Gold by destroying enemies");
+        g.putString(leftColX, row++, "  and surviving waves to upgrade.");
 
 
         int rightColX = 85;
@@ -107,6 +107,12 @@ public class InstructionsState implements State {
         g.putString(rightColX, row++, "[ Q ]");
         g.setForegroundColor(TextColor.ANSI.WHITE);
         g.putString(rightColX, row++, "Quit Mission");
+        row++;
+
+        g.setForegroundColor(TextColor.ANSI.YELLOW);
+        g.putString(rightColX, row++, "[ U ]");
+        g.setForegroundColor(TextColor.ANSI.WHITE);
+        g.putString(rightColX, row++, "Sell Tower");
 
 
         g.setForegroundColor(TextColor.ANSI.GREEN);
