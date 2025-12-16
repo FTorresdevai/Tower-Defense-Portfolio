@@ -4,10 +4,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import game.Game;
 import game.audio.SoundManager;
-import game.states.EnemyInfoState;
-import game.states.GameOverState;
-import game.states.PauseState;
-import game.states.ShopState;
+import game.states.*;
 
 public class PlayStateController {
 
@@ -29,7 +26,10 @@ public class PlayStateController {
         }
 
         if (input.getKeyType() == KeyType.Character && Character.toLowerCase(input.getCharacter()) == 'u') {
-            context.getArena().sellTowerAtCursor();
+
+            if (context.getArena().getSellValueAtCursor() > 0) {
+                context.setState(new SellTowerState(context));
+            }
         }
 
         if (input.getKeyType() == KeyType.Character &&

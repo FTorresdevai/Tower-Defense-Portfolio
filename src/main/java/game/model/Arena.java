@@ -321,5 +321,11 @@ public class Arena implements Subject {
         notifyObservers();
         return true;
     }
+    public int getSellValueAtCursor() {
+        Tower tower = getTowerAtCursor();
+        if (tower == null) return 0;
+        return tower.getRefund();
+    }
+
 
 }
